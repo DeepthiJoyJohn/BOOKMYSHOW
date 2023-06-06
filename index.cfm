@@ -31,7 +31,7 @@
 									<cfset passwordmessage="">
 									<cfset loginmessage="">
 									<cfif isDefined("form.log")>							                 	
-										<cfinvoke component="ADDRESSBOOK.Components.addressbook" method="login" 
+										<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="login" 
 										Uname="#form.Uname#" Pass="#form.Pass#" returnVariable="res">
 										<cfif  ArrayContains(res, "Wrong Credendials") >
 										    <cfset loginmessage="Wrong Credentials!!">
@@ -43,7 +43,7 @@
 											<cfset passwordmessage="Required">										
 										</cfif>	
 										<cfif ArrayContains(res, "Correct")>											
-											<cflocation url="listing.cfm" addtoken="no">
+											<cflocation url="home.cfm" addtoken="no">
 										</cfif>										
 									</cfif>
 			            			<div class="row justify-content-center">			            
