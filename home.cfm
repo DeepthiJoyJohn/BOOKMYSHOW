@@ -8,22 +8,40 @@
 		<script src="js/registration.js" type="text/javascript"></script>
 	</head>	
 	<body>
+		<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getevents" returnVariable="events">
+		<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getlocations" returnVariable="locations">
+		<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getlanguage" returnVariable="language">
 		<cfoutput>
-		<h1>WELCOME HOME</h1>
-		<label class="form-label">Location</label>
-		<CFQUERY NAME="locationlist" DATASOURCE="bookmyshow">
-			SELECT 
-				location
-			FROM 
-				location			
-			ORDER BY 
-				id
-		</CFQUERY>   
-		<select class="form-select-sm" name="location" id="location" required="yes">
-			<cfloop query="locationlist">
-				<OPTION VALUE="#locationlist.location#">#locationlist.location#</OPTION>
-			</cfloop>
-		</select>
+			<table class="table">
+				<tr>
+					<td><label class="form-label">Location</label></td>
+					<td>
+						<select class="form-select-sm" name="location" id="location" required="yes">
+							<cfloop query="locations">
+								<OPTION VALUE="#locations.comboname#">#locations.comboname#</OPTION>
+							</cfloop>
+						</select>
+					</td>
+					<td><label class="form-label">Events</label></td>
+					<td>
+						<select class="form-select-sm" name="event" id="event" required="yes">
+							<cfloop query="events">
+								<OPTION VALUE="#events.comboname#">#events.comboname#</OPTION>
+							</cfloop>
+						</select>
+					</td>
+					<td><label class="form-label">Language</label></td>
+					<td>
+						<select class="form-select-sm" name="event" id="event" required="yes">
+							<cfloop query="language">
+								<OPTION VALUE="#language.comboname#">#language.comboname#</OPTION>
+							</cfloop>
+						</select>
+					</td>
+				</tr>
+			</table>
+			<div class="scroll">
+			</div>
 		</cfoutput>
 	</body>
 </html>

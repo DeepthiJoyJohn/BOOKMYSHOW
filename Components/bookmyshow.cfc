@@ -12,7 +12,46 @@
 					AND password=<cfqueryparam value="#arguments.Pass#" cfsqltype="CF_SQL_VARCHAR">
 		</cfquery> 
 		<cfreturn local.getlogin>
-	</cffunction>   
+	</cffunction>  
+	<cffunction name="getevents" access="remote">		
+		<CFQUERY NAME="local.eventlist" DATASOURCE="bookmyshow">
+			SELECT 
+				comboname
+			FROM 
+				combos
+			WHERE
+				combotype="events"			
+			ORDER BY 
+				id
+		</CFQUERY>
+		<cfreturn local.eventlist>
+	</cffunction>
+	<cffunction name="getlocations" access="remote">		
+		<CFQUERY NAME="local.locationlist" DATASOURCE="bookmyshow">
+			SELECT 
+				comboname
+			FROM 
+				combos
+			WHERE
+				combotype="location"				
+			ORDER BY 
+				id
+		</CFQUERY>
+		<cfreturn local.locationlist>
+	</cffunction> 
+	<cffunction name="getlanguage" access="remote">		
+		<CFQUERY NAME="local.languagelist" DATASOURCE="bookmyshow">
+			SELECT 
+				comboname
+			FROM 
+				combos
+			WHERE
+				combotype="language"				
+			ORDER BY 
+				id
+		</CFQUERY>
+		<cfreturn local.languagelist>
+	</cffunction>  
     <cffunction name="login" access="remote">
         <cfargument name="Uname">
 		<cfargument name="Pass">
