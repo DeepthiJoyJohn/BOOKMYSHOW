@@ -53,14 +53,11 @@
 		<cfreturn local.languagelist>
 	</cffunction> 
 	<cffunction name="geteventimages" access="remote">	
-		<cfargument name="event">	
 		<CFQUERY NAME="local.eventimages" DATASOURCE="bookmyshow">
 			SELECT 
 				eventpath
 			FROM 
-				events	
-			WHERE
-				eventtype="#arguments.event#"						
+				events		   
 			ORDER BY 
 				id
 		</CFQUERY>

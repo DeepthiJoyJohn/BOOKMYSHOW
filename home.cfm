@@ -35,11 +35,11 @@
 					</td>
 					<td><label class="form-label">Language</label></td>
 					<td>
-						<select class="form-select-sm" name="event" id="event" required="yes">
+						<select class="form-select-sm" name="language" id="language" required="yes">
 							<cfloop query="language">
 								<OPTION VALUE="#language.comboname#">#language.comboname#</OPTION>
 							</cfloop>
-						</select>
+						</select>						
 					</td>
 				</tr>
 			</table>			
@@ -48,7 +48,10 @@
 					<tr>
 						<cfloop index="i" from="1" to="#images.RecordCount#">
 							<cfimage action="read" source="#images.eventpath[i]#" name="myImage">
-							<td><cfimage source="#myImage#" action="writeToBrowser"></td>
+							<td>
+								<cfimage source="#myImage#" action="writeToBrowser"><br>
+								<button type="button" name="eventbutton" onclick="eventdetails(#i#)" class="btn btn-danger btn-sm">BOOK TICKET</button>
+							</td>
 							<cfif i%4 eq 0>
 								<tr>
 							</cfif>
@@ -58,5 +61,5 @@
 			</div>
 		</cfoutput>
 	</body>
-	</form>	
+	</form>
 </html>
