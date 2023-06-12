@@ -50,6 +50,12 @@
 							<cfimage action="read" source="#images.eventpath[i]#" name="myImage">
 							<td>
 								<cfimage source="#myImage#" action="writeToBrowser"><br>
+								<label class="eventname">#images.eventname[i]#</label>
+								<span class="eventspan">
+									<i class="bi bi-star"></i>
+									<label class="eventname">#images.eventrate[i]#/10</label>
+									<label class="eventname">#images.hr[i]#h #images.mi[i]#m</label>
+								</span><br>
 								<button type="button" name="eventbutton" onclick="eventdetails(#i#)" class="btn btn-danger btn-sm">BOOK TICKET</button>
 							</td>
 							<cfif i%4 eq 0>

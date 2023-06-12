@@ -55,7 +55,7 @@
 	<cffunction name="geteventimages" access="remote">	
 		<CFQUERY NAME="local.eventimages" DATASOURCE="bookmyshow">
 			SELECT 
-				eventpath
+				eventpath,eventname,eventrate,HOUR(eventtime) AS hr,MINUTE(eventtime) AS mi
 			FROM 
 				events		   
 			ORDER BY 
@@ -123,4 +123,17 @@
 		</cfif>
         <cfreturn local.errorarray>
     </cffunction>	
+	<cffunction name="gettheatreinfo" access="remote">	
+		<CFQUERY NAME="local.gettheatreinfo" DATASOURCE="bookmyshow">
+			SELECT 
+				theatrename,theatreadd,HOUR(showtime) AS hr,MINUTE(showtime) AS mi
+			FROM 
+				theatre	
+			WHERE 
+				eventid="1"	   
+			ORDER BY 
+				id
+		</CFQUERY>
+		<cfreturn local.gettheatreinfo>
+	</cffunction>
 </cfcomponent>  
