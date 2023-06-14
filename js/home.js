@@ -14,3 +14,7 @@ function invokecfc(value) {
 function eventdetails(value) {	
 	window.location="eventdetails.cfm?id="+value;
 }
+function eventseats(value) {	
+	alert(value);
+	window.location="theatreseats.cfm?id="+value;
+}

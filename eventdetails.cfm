@@ -5,7 +5,8 @@
 	    <link href="show/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 	    <link href="show/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
 	    <link href="show/css/style.css" rel="stylesheet">	
-		<script src="js/registration.js" type="text/javascript"></script>
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>		
+		<script src="js/home.js" type="text/javascript"></script>
 	</head>	
 	<body>	
 		<header id="header">			
@@ -33,7 +34,7 @@
 																#theatre.theatrename[i]#  #theatre.theatreadd[i]#
 															</td>
 															<td>
-																<button type="button" class="btn btn-outline-dark">#theatre.hr[i]# : #theatre.mi[i]#</button>
+																<button type="button" onclick="eventseats(#i#)" class="btn btn-outline-dark">#theatre.hr[i]# : #theatre.mi[i]#</button>
 															</td>
 															<cfif i%1 eq 0>
 																<tr>

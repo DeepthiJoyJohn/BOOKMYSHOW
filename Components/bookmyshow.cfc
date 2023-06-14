@@ -136,4 +136,26 @@
 		</CFQUERY>
 		<cfreturn local.gettheatreinfo>
 	</cffunction>
+	<cffunction name="getseats" access="remote">	
+		<CFQUERY NAME="local.getseats" DATASOURCE="bookmyshow">
+			SELECT 
+				*
+			FROM 
+				theatredetails	
+			WHERE 
+				theatreid="1"	
+		</CFQUERY>
+		<cfreturn local.getseats>
+	</cffunction>
+	<cffunction name="getseatdetails" access="remote">	
+		<CFQUERY NAME="local.getseatdetails" DATASOURCE="bookmyshow">
+			SELECT 
+				*
+			FROM 
+				theatreseatdetails	
+			WHERE 
+				theatredetailsid="1"	
+		</CFQUERY>
+		<cfreturn local.getseatdetails>
+	</cffunction>
 </cfcomponent>  
