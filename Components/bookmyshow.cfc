@@ -158,4 +158,19 @@
 		</CFQUERY>
 		<cfreturn local.getseatdetails>
 	</cffunction>
+	<cffunction name="updateseatstatus1" access="remote">
+		<CFQUERY NAME="local.updateseatstatus" DATASOURCE="bookmyshow">
+			UPDATE 
+				theatreseatdetails	
+			SET 
+				status="selected"
+			WHERE
+				id="#url.seatid#"					
+		</CFQUERY>
+		<cfreturn local.updateseatstatus.RecordCount> 
+	</cffunction>
+	<cffunction name="updateseatstatus" access="remote">
+		<cfset local.btntxt="#url.seatid#">
+		<cfreturn local.btntxt> 
+	</cffunction>
 </cfcomponent>  

@@ -4,8 +4,9 @@
 	    <link href="show/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	    <link href="show/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 	    <link href="show/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-	    <link href="show/css/style.css" rel="stylesheet">	
-		<script src="js/registration.js" type="text/javascript"></script>
+	    <link href="show/css/style.css" rel="stylesheet">
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>	
+		<script src="js/home.js" type="text/javascript"></script>
 	</head>	
 	<body>	
 		<header id="header">			
@@ -38,13 +39,11 @@
 																	<cfloop index="y" from="1" to="#seats.noofrows[i]#">
 																		<tr>
 																			<cfloop index="x" from="1" to="#seats.noofcols[i]#">
-																				<cfloop index="z" from="1" to="#seatsdetails.RecordCount#">
-																					<cfif ((#seatsdetails.rowno[z]# eq #y#) AND (#seatsdetails.colno[z]# eq #x#)) AND (#seats.id[i]# eq #seatsdetails.theatredetailsid[z]# AND #seatsdetails.value[x]# neq "")>
-																						<td><button>#seatsdetails.value[x]#</button></td>
-																					<cfelse>
-																						<td></td>
-																					</cfif> 
-																				</cfloop>																				
+																				<cfloop index="z" from="1" to="#seatsdetails.RecordCount#">	
+																					<cfif ((#seatsdetails.rowno[z]# eq #y#) AND (#seatsdetails.colno[z]# eq #x#)) AND (#seats.id[i]# eq #seatsdetails.theatredetailsid[z]#)>																		     
+																						<td><button type="button" onclick="markseat(#seatsdetails.id[z]#)" id="#seatsdetails.id[z]#" class="#seatsdetails.status[z]#">#seatsdetails.value[z]#</button></td>																																											
+																					</cfif>
+																				</cfloop>															
 																			</cfloop>
 																		</tr>
 																	</cfloop>
@@ -53,6 +52,14 @@
 														</tr>
 													</table>
 												</cfloop>
+												<table>
+													<tr>
+														<td><button class="available">&nbsp;</button><b> available</b></td>
+														<td><button class="selected">&nbsp;</button><b> selected</b></td>
+														<td><button class="sold">&nbsp;</button><b> sold</b><div id="1"></div></td>
+														
+													</tr>
+												</table>
 											</div>											
 										</div>
 									</div>

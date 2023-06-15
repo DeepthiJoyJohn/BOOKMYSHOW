@@ -14,6 +14,24 @@ body {
   color: #272829;
   background-color: #9ebfe0;
 }
+button.available {
+
+  color: #12703c;
+  background-color: #fcfcfc;
+  border: 2px solid #14aa41;
+}
+button.selected {
+
+  color: #12703c;
+  background-color: #07b12c;
+  border: 2px solid #14aa41;
+}
+button.sold {
+
+  color: #12703c;
+  background-color: #545755;
+  border: 2px solid #14aa41;
+}
 div.scroll {       
   height: 500px;
   width: 1200px;
