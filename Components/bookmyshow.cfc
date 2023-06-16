@@ -169,8 +169,7 @@
 		</CFQUERY>
 		<cfreturn local.updateseatstatus.RecordCount> 
 	</cffunction>
-	<cffunction name="updateseatstatus" access="remote">
-		<cfset local.btntxt="#url.seatid#">
-		<cfreturn local.btntxt> 
+	<cffunction name="updateseatstatus" access="remote">		
+		<cfreturn "mj">
 	</cffunction>
 </cfcomponent>  

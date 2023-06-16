@@ -1,4 +1,4 @@
- <html lang="en">
+ <!DOCTYPE html>
 	<head>	    
 		<title>BOOKMYSHOW</title>
 	    <link href="show/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -57,7 +57,7 @@
 														<td><button class="available">&nbsp;</button><b> available</b></td>
 														<td><button class="selected">&nbsp;</button><b> selected</b></td>
 														<td><button class="sold">&nbsp;</button><b> sold</b><div id="1"></div></td>
-														
+														<div id="testdiv"></div>
 													</tr>
 												</table>
 											</div>											

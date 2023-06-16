@@ -19,16 +19,17 @@ function eventseats(value) {
 }
 function markseat(value){
 	alert(value);
-	$(document).ready(function(){	
+	$(document).ready(function(){
 				$.ajax({
 					type: "GET",
-					url: '../Components/bookmyshow.cfc?method=updateseatstatus&seatid='+value,
+					url: '../Components/bookmyshow.cfc?method=updateseatstatus',
 					cache: false,
 					success: function(data){
-						alert(html(data));
+						$("#testdiv").html="mnj";
 					},
 				});
-		
+				
+				
 	});
 }
 
