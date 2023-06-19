@@ -158,18 +158,55 @@
 		</CFQUERY>
 		<cfreturn local.getseatdetails>
 	</cffunction>
-	<cffunction name="updateseatstatus1" access="remote">
-		<CFQUERY NAME="local.updateseatstatus" DATASOURCE="bookmyshow">
-			UPDATE 
-				theatreseatdetails	
-			SET 
-				status="selected"
+	<cffunction name="getcountofselected" access="remote">
+		<cfargument name="theatredetailsid">
+		<CFQUERY NAME="local.getcountofselected" DATASOURCE="bookmyshow">
+			SELECT 
+				theatreseatdetails.status,theatredetails.cellamt	
+			FROM 
+				theatreseatdetails inner join theatredetails on (theatredetails.id=theatreseatdetails.theatredetailsid)
+			WHERE
+				theatredetailsid="#arguments.theatredetailsid#" and status="selected"					
+		</CFQUERY>
+		<cfreturn local.getcountofselected> 
+	</cffunction>
+	<cffunction name="updateseatstatus" access="remote">
+		<CFQUERY NAME="local.getseatstatus" DATASOURCE="bookmyshow">
+			SELECT 
+				status	
+			FROM 
+				theatreseatdetails
 			WHERE
 				id="#url.seatid#"					
 		</CFQUERY>
-		<cfreturn local.updateseatstatus.RecordCount> 
+		<cfif local.getseatstatus.status eq "available">
+			<CFQUERY NAME="local.updateseatstatus" DATASOURCE="bookmyshow">
+				UPDATE 
+					theatreseatdetails	
+				SET 
+					status="selected"
+				WHERE
+					id="#url.seatid#"					
+			</CFQUERY>
+		<cfelseif local.getseatstatus.status eq "selected">
+			<CFQUERY NAME="local.updateseatstatus" DATASOURCE="bookmyshow">
+				UPDATE 
+					theatreseatdetails	
+				SET 
+					status="available"
+				WHERE
+					id="#url.seatid#"					
+			</CFQUERY>
+		</cfif>
 	</cffunction>
-	<cffunction name="updateseatstatus" access="remote">		
-		<cfreturn "mj">
+	<cffunction name="updatepayment" access="remote">	
+			<CFQUERY NAME="local.updateseatstatus" DATASOURCE="bookmyshow">
+				UPDATE 
+					theatreseatdetails
+				SET 
+					status="sold"
+				WHERE
+					status="selected" and theatredetailsid="#url.theatredetailsid#"					
+			</CFQUERY>
 	</cffunction>
 </cfcomponent>  

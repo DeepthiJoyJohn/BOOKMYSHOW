@@ -29,6 +29,9 @@
 											<div>
 												<table class="table">
 													<tr>
+														<td>
+															
+														</td>
 														<cfloop index="i" from="1" to="#theatre.RecordCount#">
 															<td>
 																#theatre.theatrename[i]#  #theatre.theatreadd[i]#

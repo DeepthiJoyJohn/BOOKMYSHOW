@@ -16,9 +16,11 @@
 		      	</div>		      		      	
 		    </div>
 		</header>
+		<cfoutput>	
 		<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getseats" returnVariable="seats">	
-		<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getseatdetails" returnVariable="seatsdetails">									
-		<cfoutput>					  	 
+		<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getseatdetails" returnVariable="seatsdetails">		
+		<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getcountofselected" theatredetailsid="#url.id#" returnVariable="countofselected">																
+						  	 
 			<section  class="d-flex flex-column">				
 				<form id="form" name="form" method="post" action="">
 					<div class="container h-100 bodyclass">
@@ -39,9 +41,14 @@
 																	<cfloop index="y" from="1" to="#seats.noofrows[i]#">
 																		<tr>
 																			<cfloop index="x" from="1" to="#seats.noofcols[i]#">
-																				<cfloop index="z" from="1" to="#seatsdetails.RecordCount#">	
+																				<cfloop index="z" from="1" to="#seatsdetails.RecordCount#">
+																				    <cfif #seatsdetails.status[z]# eq "sold">
+																						<cfset disable="disabled">
+																					<cfelse>
+																						<cfset disable="">
+																					</cfif>	
 																					<cfif ((#seatsdetails.rowno[z]# eq #y#) AND (#seatsdetails.colno[z]# eq #x#)) AND (#seats.id[i]# eq #seatsdetails.theatredetailsid[z]#)>																		     
-																						<td><button type="button" onclick="markseat(#seatsdetails.id[z]#)" id="#seatsdetails.id[z]#" class="#seatsdetails.status[z]#">#seatsdetails.value[z]#</button></td>																																											
+																						<td><button #disable# type="button" onclick="markseat(#seatsdetails.id[z]#)" id="#seatsdetails.id[z]#" class="#seatsdetails.status[z]#">#seatsdetails.value[z]#</button></td>																																											
 																					</cfif>
 																				</cfloop>															
 																			</cfloop>
@@ -57,8 +64,13 @@
 														<td><button class="available">&nbsp;</button><b> available</b></td>
 														<td><button class="selected">&nbsp;</button><b> selected</b></td>
 														<td><button class="sold">&nbsp;</button><b> sold</b><div id="1"></div></td>
-														<div id="testdiv"></div>
 													</tr>
+													<cfif #countofselected.RecordCount# gte 1>
+														<tr>
+															<cfset totalamt=(#countofselected.cellamt#)*(#countofselected.RecordCount#)>
+															<td><button onclick="payamt(#url.id#)" class="btn btn-danger btn-sm">Book & Pay Amt-#totalamt#</button></td>
+														</tr>
+													</cfif>
 												</table>
 											</div>											
 										</div>
