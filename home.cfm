@@ -2,8 +2,9 @@
 	<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getevents" returnVariable="events">
 	<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getlocations" returnVariable="locations">
 	<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getlanguage" returnVariable="language">	
-	<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="geteventimages" returnVariable="images">					
+	
 	<form id="form" name="form" method="post" action="" enctype="multipart/form-data">
+	#form.location#
 	<head>	    
 		<title>BOOKMYSHOW</title>
 	    <link href="show/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -12,7 +13,8 @@
 	    <link href="show/css/style.css" rel="stylesheet">		
 		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>		
 		<script src="js/home.js" type="text/javascript"></script>
-	</head>	
+	</head>
+	<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="geteventimages" returnVariable="images">
 	<body>		
 		<cfoutput>			
 			<table class="table">
@@ -27,7 +29,7 @@
 					</td>
 					<td><label class="form-label">Events</label></td>
 					<td>
-						<select class="form-select-sm" onchange="invokecfc(this.value)" name="event" id="event" required="yes">
+						<select class="form-select-sm"  name="event" id="event" required="yes">
 							<cfloop query="events">
 								<OPTION VALUE="#events.comboname#">#events.comboname#</OPTION>
 							</cfloop>

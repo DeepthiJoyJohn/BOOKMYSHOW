@@ -19,14 +19,11 @@
 		<cfset datevalue="#LSDateFormat(now(), 'yyyy-mm-dd')#">
 		<cfif isDefined("form.datepicker")>
 			<cfset datevalue="#form.datepicker#">
-			<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" datepicker="#form.datepicker#" method="gettheatreinfo" returnVariable="theatre">		
-			
+			<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" datepicker="#form.datepicker#" method="gettheatreinfo" returnVariable="theatre">					
 		<cfelse>
 			<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="gettheatreinfo" returnVariable="theatre">		
-		</cfif>
-		
-		<cfoutput>			
-		
+		</cfif>		
+		<cfoutput>
 			<section  class="d-flex flex-column justify-content-center align-items-center">				
 				<form id="form" name="form" method="post" action="">
 					<div class="container h-100 bodyclass">
@@ -59,7 +56,7 @@
 																#theatre.theatrename[i]#  #theatre.theatreadd[i]#
 															</td>
 															<td>
-																<button type="button" onclick="eventseats(#i#)" class="btn btn-outline-dark">#theatre.hr[i]# : #theatre.mi[i]#</button>
+																<button type="button" onclick="eventseats(#i#,#theatre.eventid#,form.datepicker)" class="btn btn-outline-dark">#theatre.hr[i]# : #theatre.mi[i]#</button>
 															</td>
 															<cfif i%1 eq 0>
 																<tr>

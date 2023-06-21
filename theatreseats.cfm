@@ -18,9 +18,8 @@
 		</header>
 		<cfoutput>	
 		<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getseats" returnVariable="seats">	
-		<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getseatdetails" returnVariable="seatsdetails">		
-		<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getcountofselected" theatredetailsid="#url.id#" returnVariable="countofselected">																
-						  	 
+		<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getseatdetails" eventid="#url.eventid#" returnVariable="seatsdetails">		
+		<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getcountofselected" theatredetailsid="#url.id#" returnVariable="countofselected">																						  	 
 			<section  class="d-flex flex-column">				
 				<form id="form" name="form" method="post" action="">
 					<div class="container h-100 bodyclass">
@@ -42,13 +41,13 @@
 																		<tr>
 																			<cfloop index="x" from="1" to="#seats.noofcols[i]#">
 																				<cfloop index="z" from="1" to="#seatsdetails.RecordCount#">
-																				    <cfif #seatsdetails.status[z]# eq "sold">
+																				    <cfif #seatsdetails.seatstatus[z]# eq "sold">
 																						<cfset disable="disabled">
 																					<cfelse>
 																						<cfset disable="">
 																					</cfif>	
 																					<cfif ((#seatsdetails.rowno[z]# eq #y#) AND (#seatsdetails.colno[z]# eq #x#)) AND (#seats.id[i]# eq #seatsdetails.theatredetailsid[z]#)>																		     
-																						<td><button #disable# type="button" onclick="markseat(#seatsdetails.id[z]#)" id="#seatsdetails.id[z]#" class="#seatsdetails.status[z]#">#seatsdetails.value[z]#</button></td>																																											
+																						<td><button #disable# type="button" onclick="markseat(#seatsdetails.id[z]#)" id="#seatsdetails.id[z]#" class="#seatsdetails.seatstatus[z]#">#seatsdetails.value[z]#</button></td>																																											
 																					</cfif>
 																				</cfloop>															
 																			</cfloop>
