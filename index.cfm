@@ -44,6 +44,9 @@
 										</cfif>	
 										<cfif ArrayContains(res, "Correct")>											
 											<cflocation url="home.cfm" addtoken="no">
+										</cfif>	
+										<cfif ArrayContains(res, "admin")>											
+											<cflocation url="admin.cfm" addtoken="no">
 										</cfif>										
 									</cfif>
 			            			<div class="row justify-content-center">			            

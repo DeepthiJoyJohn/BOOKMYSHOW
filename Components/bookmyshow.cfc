@@ -4,7 +4,7 @@
 		<cfargument name="Pass">
 		<cfquery name="local.getlogin" datasource="bookmyshow">
 				SELECT 					
-					id,username  
+					id,username,userrole  
 				FROM 
 					login 
 				WHERE 
@@ -53,16 +53,26 @@
 		<cfreturn local.languagelist>
 	</cffunction> 
 	<cffunction name="geteventimages" access="remote">
+		<cfargument name="location">
+		<cfargument name="event">
+		<cfargument name="language">
 		<CFQUERY NAME="local.eventimages" DATASOURCE="bookmyshow">
 			SELECT 
 				eventpath,eventname,eventrate,HOUR(eventtime) AS hr,MINUTE(eventtime) AS mi
 			FROM 
 				events
 			WHERE
-				DATE(NOW()) <= eventfrom
-			ORDER BY 
-				id
-		</CFQUERY>
+				DATE(NOW()) <= eventfrom 
+			<cfif #arguments.location# neq "">
+				AND eventlocation="#arguments.location#"
+			</cfif>
+			<cfif #arguments.event# neq "">
+				AND eventtype="#arguments.event#"
+			</cfif>
+			<cfif #arguments.language# neq "">
+				AND eventlanguage="#arguments.language#"
+			</cfif>
+		</CFQUERY>		
 		<cfreturn local.eventimages>
 	</cffunction>  
     <cffunction name="login" access="remote">
@@ -79,10 +89,14 @@
 		</cfif>
 		<cfif (arguments.Uname NEQ "") &&  (arguments.Pass NEQ "")>
 			<cfset myRecordSet = getlogin("#arguments.Uname#","#arguments.Pass#") />
-			<cfif myRecordSet.RecordCount GTE 1> 				
+			<cfif (myRecordSet.RecordCount GTE 1) AND myRecordSet.userrole eq ""> 				
 				<cfset session.username="#myRecordSet.username#">
 				<cfset session.userid="#myRecordSet.id#">
 				<cfset ArrayAppend(local.errorarray, "Correct")> 
+			<cfelseif (myRecordSet.RecordCount GTE 1) AND (myRecordSet.userrole eq "admin")>
+				<cfset session.username="#myRecordSet.username#">
+				<cfset session.userid="#myRecordSet.id#">
+				<cfset ArrayAppend(local.errorarray, "admin")>
 			<cfelse>
 				<cfset ArrayAppend(local.errorarray, "Wrong Credendials")> 
 			</cfif>
@@ -127,14 +141,15 @@
     </cffunction>	
 	<cffunction name="gettheatreinfo" access="remote">
 	    <cfargument name="datepicker">
+		<cfargument name="eventid">
 		<cfif isDefined("arguments.datepicker")>
 			<CFQUERY NAME="local.gettheatreinfo" DATASOURCE="bookmyshow">
 			SELECT 
-				theatre.theatrename,theatre.theatreadd,HOUR(theatre.showtime) AS hr,MINUTE(theatre.showtime) AS mi
+				theatre.theatrename,theatre.eventid,theatre.theatreadd,HOUR(theatre.showtime) AS hr,MINUTE(theatre.showtime) AS mi
 			FROM 
 				theatre	inner join events on (events.id=theatre.eventid)
 			WHERE 
-				theatre.eventid="1" AND "#arguments.datepicker#" BETWEEN events.eventfrom AND events.eventto
+				theatre.eventid="#arguments.eventid#" AND "#arguments.datepicker#" BETWEEN events.eventfrom AND events.eventto
 			ORDER BY 
 				theatre.id
 		</CFQUERY>
@@ -145,26 +160,28 @@
 			FROM 
 				theatre	inner join events on (events.id=theatre.eventid)
 			WHERE 
-				theatre.eventid="1" AND DATE(NOW()) BETWEEN events.eventfrom AND events.eventto
+				theatre.eventid="#arguments.eventid#" AND DATE(NOW()) BETWEEN events.eventfrom AND events.eventto
 			ORDER BY 
 				theatre.id
 		</CFQUERY>
 		</cfif>
 		<cfreturn local.gettheatreinfo>
 	</cffunction>	
-	<cffunction name="getseats" access="remote">	
+	<cffunction name="getseats" access="remote">
+		<cfargument name="theatreid">	
 		<CFQUERY NAME="local.getseats" DATASOURCE="bookmyshow">
 			SELECT 
 				*
 			FROM 
 				theatredetails	
 			WHERE 
-				theatreid="1"	
+				theatreid="#arguments.theatreid#"	
 		</CFQUERY>
 		<cfreturn local.getseats>
 	</cffunction>
 	<cffunction name="getseatdetails" access="remote">
 		<cfargument name="eventid">
+		<cfargument name="theatredetailsid">
 		<CFQUERY NAME="local.getevents" DATASOURCE="bookmyshow">
 			SELECT 
 				events.eventfrom,events.eventto,showtime
@@ -179,7 +196,7 @@
 			FROM 
 				theatreseatdetails left join theatreseatstatus on (theatreseatdetails.id=theatreseatstatus.seatid) 	
 			WHERE 
-				theatredetailsid="1" and "#url.datevalue#" = theatreseatstatus.showdate and ("#local.getevents.showtime#"=theatreseatstatus.showtime)
+				theatredetailsid="#arguments.theatredetailsid#" and "#url.datevalue#" = theatreseatstatus.showdate and ("#local.getevents.showtime#"=theatreseatstatus.showtime)
 		</CFQUERY>
 		<cfreturn local.getseatdetails>
 	</cffunction>

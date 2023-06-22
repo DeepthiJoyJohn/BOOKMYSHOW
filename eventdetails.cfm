@@ -13,15 +13,20 @@
 			<div class="d-flex flex-column">
 		    	<div class="profile">        
 		        	<h6 class="text-light">BOOKMYSHOW</h6>        
-		      	</div>		      		      	
+		      	</div>
+				<nav id="navbar" class="nav-menu navbar">
+			        <ul>			          	
+			          	<li><a href="index.cfm" class="nav-link scrollto"><i class="bx bx-log-out"></i> <span>logout</span></a></li>		          
+			        </ul>
+		        </nav>			      		      	
 		    </div>
 		</header>
 		<cfset datevalue="#LSDateFormat(now(), 'yyyy-mm-dd')#">
 		<cfif isDefined("form.datepicker")>
 			<cfset datevalue="#form.datepicker#">
-			<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" datepicker="#form.datepicker#" method="gettheatreinfo" returnVariable="theatre">					
+			<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" eventid="#url.id#" datepicker="#form.datepicker#" method="gettheatreinfo" returnVariable="theatre">					
 		<cfelse>
-			<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="gettheatreinfo" returnVariable="theatre">		
+			<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" eventid="#url.id#" method="gettheatreinfo" returnVariable="theatre">		
 		</cfif>		
 		<cfoutput>
 			<section  class="d-flex flex-column justify-content-center align-items-center">				

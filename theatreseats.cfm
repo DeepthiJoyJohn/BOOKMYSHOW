@@ -15,10 +15,15 @@
 		        	<h6 class="text-light">BOOKMYSHOW</h6>        
 		      	</div>		      		      	
 		    </div>
+			<nav id="navbar" class="nav-menu navbar">
+			        <ul>			          	
+			          	<li><a href="index.cfm" class="nav-link scrollto"><i class="bx bx-log-out"></i> <span>Logout</span></a></li>		          
+			        </ul>
+		    </nav>	
 		</header>
 		<cfoutput>	
-		<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getseats" returnVariable="seats">	
-		<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getseatdetails" eventid="#url.eventid#" returnVariable="seatsdetails">		
+		<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getseats" theatreid="#url.id#" returnVariable="seats">	
+		<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getseatdetails" theatredetailsid="#url.id#" eventid="#url.eventid#" returnVariable="seatsdetails">		
 		<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getcountofselected" theatredetailsid="#url.id#" returnVariable="countofselected">																						  	 
 			<section  class="d-flex flex-column">				
 				<form id="form" name="form" method="post" action="">
@@ -59,11 +64,15 @@
 													</table>
 												</cfloop>
 												<table>
+													<cfif #seats.RecordCount# gte 1>
 													<tr>
 														<td><button class="available">&nbsp;</button><b> available</b></td>
 														<td><button class="selected">&nbsp;</button><b> selected</b></td>
 														<td><button class="sold">&nbsp;</button><b> sold</b><div id="1"></div></td>
 													</tr>
+													<cfelse>
+														<span>No seats defined!!!</span>
+													</cfif>
 													<cfif #countofselected.RecordCount# gte 1>
 														<tr>
 															<cfset totalamt=(#countofselected.cellamt#)*(#countofselected.RecordCount#)>
