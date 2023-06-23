@@ -1,5 +1,5 @@
 <html>
-	<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getevents" returnVariable="events">
+	<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="geteventtypes" returnVariable="eventtypes">
 	<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getlocations" returnVariable="locations">
 	<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getlanguage" returnVariable="language">
 	<form id="form" name="form" method="post" action="" enctype="multipart/form-data">
@@ -32,12 +32,12 @@
 							<select class="form-select-sm" name="location" id="location" onchange="comboassign();" required="yes">
 								<OPTION VALUE="">All</OPTION>
 								<cfloop query="locations">
-									<cfif (#location# eq #locations.comboname#)>
+									<cfif (#location# eq #locations.locationname#)>
 										<cfset locsel="selected">
 									<cfelse>
 										<cfset locsel="">
 									</cfif>
-									<OPTION #locsel# VALUE="#locations.comboname#">#locations.comboname#</OPTION>
+									<OPTION #locsel# VALUE="#locations.locationname#">#locations.locationname#</OPTION>
 								</cfloop>
 							</select>
 						</td>
@@ -45,13 +45,13 @@
 						<td>
 							<select class="form-select-sm"  name="event" id="event" onchange="comboassign();" required="yes">
 								<OPTION VALUE="">All</OPTION>
-								<cfloop query="events">
-									<cfif (#eventtype# eq #events.comboname#)>
+								<cfloop query="eventtypes">
+									<cfif (#eventtype# eq #eventtypes.eventtypename#)>
 										<cfset evesel="selected">
 									<cfelse>
 										<cfset evesel="">
 									</cfif>
-									<OPTION #evesel# VALUE="#events.comboname#">#events.comboname#</OPTION>
+									<OPTION #evesel# VALUE="#eventtypes.eventtypename#">#eventtypes.eventtypename#</OPTION>
 								</cfloop>
 							</select>
 						</td>
@@ -60,12 +60,12 @@
 							<select class="form-select-sm" name="language" onchange="comboassign();" id="language" required="yes">
 								<OPTION VALUE="">All</OPTION>
 								<cfloop query="language">
-									<cfif (#languagetype# eq #language.comboname#)>
+									<cfif (#languagetype# eq #language.languagename#)>
 										<cfset lansel="selected">
 									<cfelse>
 										<cfset lansel="">
 									</cfif>
-									<OPTION #lansel# VALUE="#language.comboname#">#language.comboname#</OPTION>
+									<OPTION #lansel# VALUE="#language.languagename#">#language.languagename#</OPTION>
 								</cfloop>
 							</select>						
 						</td>

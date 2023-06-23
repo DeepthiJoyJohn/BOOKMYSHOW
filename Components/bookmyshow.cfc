@@ -1,4 +1,6 @@
-<cfcomponent output="false"> 
+<cfcomponent output="false">
+
+	<!--function to get Login Details--> 
     <cffunction name="getlogin" access="remote">
 		<cfargument name="Uname">
 		<cfargument name="Pass">
@@ -12,46 +14,54 @@
 					AND password=<cfqueryparam value="#arguments.Pass#" cfsqltype="CF_SQL_VARCHAR">
 		</cfquery> 
 		<cfreturn local.getlogin>
-	</cffunction>  
-	<cffunction name="getevents" access="remote">		
-		<CFQUERY NAME="local.eventlist" DATASOURCE="bookmyshow">
+	</cffunction> 
+	<!--End-->
+
+	<!--function to get Event Types--> 
+	<cffunction name="geteventtypes" access="remote">		
+		<CFQUERY NAME="local.eventtypes" DATASOURCE="bookmyshow">
 			SELECT 
-				comboname
+				eventtypename
 			FROM 
-				combos
-			WHERE
-				combotype="events"			
+				eventtypes
 			ORDER BY 
-				id
+				eventtypename 
+			DESC
 		</CFQUERY>
-		<cfreturn local.eventlist>
+		<cfreturn local.eventtypes>
 	</cffunction>
+	<!--End-->
+
+	<!--function to get Locations-->
 	<cffunction name="getlocations" access="remote">		
 		<CFQUERY NAME="local.locationlist" DATASOURCE="bookmyshow">
 			SELECT 
-				comboname
+				locationname
 			FROM 
-				combos
-			WHERE
-				combotype="location"				
+				locations							
 			ORDER BY 
-				id
+				locationname 
+			DESC
 		</CFQUERY>
 		<cfreturn local.locationlist>
 	</cffunction> 
+	<!--End-->
+
+	<!--function to get Languages-->
 	<cffunction name="getlanguage" access="remote">		
 		<CFQUERY NAME="local.languagelist" DATASOURCE="bookmyshow">
 			SELECT 
-				comboname
+				languagename
 			FROM 
-				combos
-			WHERE
-				combotype="language"				
+				languages
 			ORDER BY 
-				id
+				languagename
+			DESC
 		</CFQUERY>
 		<cfreturn local.languagelist>
 	</cffunction> 
+	<!--End-->
+
 	<cffunction name="geteventimages" access="remote">
 		<cfargument name="location">
 		<cfargument name="event">

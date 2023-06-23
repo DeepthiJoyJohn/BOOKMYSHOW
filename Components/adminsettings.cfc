@@ -1,12 +1,13 @@
 <cfcomponent output="false"> 
-    <cffunction name="combos" access="remote">
-		<cfquery name="local.combos" datasource="bookmyshow">
-				SELECT 					
-					*
-				FROM 
-					combos 
+	<!--Insert to location table-->
+	<cffunction name="addlocation" access="remote">
+		<cfargument name="locationname">
+		<cfquery name="local.addlocation" datasource="bookmyshow">
+				INSERT INTO
+					locations (locationname)
+				VALUES 
+					(<cfqueryparam value="#arguments.locationname#" cfsqltype="CF_SQL_VARCHAR">)
 		</cfquery> 
-		<cfreturn local.combos>
-	</cffunction>  
-	
+	</cffunction>
+	<!--End-->
 </cfcomponent>  

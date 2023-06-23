@@ -9,7 +9,7 @@
 			<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>		
 			<script src="js/home.js" type="text/javascript"></script>
 		</head>
-		<cfinvoke component="BOOKMYSHOW.Components.adminsettings" method="getcombo" returnVariable="combos">		  	 
+		
 		<body>
 			<header id="header">			
 				<div class="d-flex flex-column">
@@ -18,7 +18,7 @@
 					</div>
 					<nav id="navbar" class="nav-menu navbar">
 						<ul>			          	
-							<li><a href="combosettings.cfm" class="nav-link scrollto"><i class="bx bx-log-out"></i> <span>Combos</span></a></li>		          
+							<li><a href="locations.cfm" class="nav-link scrollto"><i class="bx bx-log-out"></i> <span>Locations</span></a></li>		          
 						</ul>
 						<ul>			          	
 							<li><a href="index.cfm" class="nav-link scrollto"><i class="bx bx-log-out"></i> <span>logout</span></a></li>		          
@@ -26,9 +26,7 @@
 					</nav>			      		      	
 				</div>
 			</header>		
-			<cfoutput>	
-				ADMIN
-			</cfoutput>
+			
 		</body>
 	</form>
 </html>

@@ -1,10 +1,18 @@
 $(document).ready( function() {
-	$('#datepicker').attr('min',today); 
+	$('#datepicker').attr('min',today); 	
 	
 });
 function comboassign(value) {
    document.form.submit();
 }
+function checknull() {
+	var locationname=document.getElementById("locationname").value;	
+	if(locationname==""){
+      document.getElementById("locationnamediv").innerHTML="Please Enter Location Name!!";
+	  return false;
+	}
+	
+ }
 function invokecfc(value) {	
 	$.ajax({
 		type: "GET",
