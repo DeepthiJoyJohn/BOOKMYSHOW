@@ -9,7 +9,7 @@
 			<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>		
 			<script src="js/home.js" type="text/javascript"></script>
 		</head>
-		<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getlocations" returnVariable="locations">
+		<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="geteventtypes" returnVariable="eventtypes">
 		<body>
 			<header id="header">			
 				<div class="d-flex flex-column">
@@ -29,9 +29,9 @@
 			<cfoutput>	
 				<section  class="d-flex flex-column justify-content-center align-items-center">				
 				<form id="form" name="form" method="post" action="">
-					<cfif isDefined("form.addbtn") AND (form.locationname neq "")>
-						<cfinvoke component="BOOKMYSHOW.Components.adminsettings" locationname="#form.locationname#" method="addlocation">
-						<cflocation url="locations.cfm">
+					<cfif isDefined("form.addbtn") AND (form.eventtypename neq "")>
+						<cfinvoke component="BOOKMYSHOW.Components.adminsettings" eventtypename="#form.eventtypename#" method="addeventtypes" >
+						<cflocation url="eventtypes.cfm">
 					</cfif> 
 					<div class="container h-100 bodyclass">
 						<div class="row d-flex justify-content-center align-items-center h-100">
@@ -46,27 +46,27 @@
 															<b>SL:NO</b>
 														</td>														
 														<td>
-															<b>LOCATION NAME</b>
+															<b>EVENTTYPE NAME</b>
 														</td>
 														<td>
-															<input type="text" class="form-control-sm" id="locationname" name="locationname"><br>
+															<input type="text" class="form-control-sm" id="eventtypename" name="eventtypename"><br>
 															<span id="errornamediv"></span>
 														</td>
 														<td>
-															<button class="btn btn-primary btn-xs" onclick="checknull();" type="submit" id="addbtn" name="addbtn"><i class="bx bx-book-add"></i></button>
+															<button class="btn btn-primary btn-xs" onclick="checknulleve();" type="submit" id="addbtn" name="addbtn"><i class="bx bx-book-add"></i></button>
 														</td>
 													</tr>
 													<cfset slno="1">																										
-													<cfloop index="i" from="1" to="#locations.RecordCount#">														
+													<cfloop index="i" from="1" to="#eventtypes.RecordCount#">														
 														<tr>
 															<td>
 																#slno#	
 															</td>
 															<td>
-																#locations.locationname[i]#
+																#eventtypes.eventtypename[i]#
 															</td>
 															<td>
-																<a title="DETELE" href="Components/adminsettings.cfc?method=deletelocation&id=#locations.id#">
+																<a title="DETELE" href="Components/adminsettings.cfc?method=deleteeventtype&id=#eventtypes.id[i]#">
 																<i class="bx bx-trash" aria-hidden="true"></i>
 															</td>
 														</tr>

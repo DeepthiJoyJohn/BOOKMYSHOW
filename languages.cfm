@@ -9,7 +9,7 @@
 			<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>		
 			<script src="js/home.js" type="text/javascript"></script>
 		</head>
-		<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getlocations" returnVariable="locations">
+		<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getlanguage" returnVariable="languages">
 		<body>
 			<header id="header">			
 				<div class="d-flex flex-column">
@@ -29,9 +29,9 @@
 			<cfoutput>	
 				<section  class="d-flex flex-column justify-content-center align-items-center">				
 				<form id="form" name="form" method="post" action="">
-					<cfif isDefined("form.addbtn") AND (form.locationname neq "")>
-						<cfinvoke component="BOOKMYSHOW.Components.adminsettings" locationname="#form.locationname#" method="addlocation">
-						<cflocation url="locations.cfm">
+					<cfif isDefined("form.addbtn") AND (form.languagename neq "")>
+						<cfinvoke component="BOOKMYSHOW.Components.adminsettings" languagename="#form.languagename#" method="addlanguages" >
+						<cflocation url="languages.cfm">
 					</cfif> 
 					<div class="container h-100 bodyclass">
 						<div class="row d-flex justify-content-center align-items-center h-100">
@@ -46,27 +46,27 @@
 															<b>SL:NO</b>
 														</td>														
 														<td>
-															<b>LOCATION NAME</b>
+															<b>LANGUAGE NAME</b>
 														</td>
 														<td>
-															<input type="text" class="form-control-sm" id="locationname" name="locationname"><br>
+															<input type="text" class="form-control-sm" id="languagename" name="languagename"><br>
 															<span id="errornamediv"></span>
 														</td>
 														<td>
-															<button class="btn btn-primary btn-xs" onclick="checknull();" type="submit" id="addbtn" name="addbtn"><i class="bx bx-book-add"></i></button>
+															<button class="btn btn-primary btn-xs" onclick="checknulllan();" type="submit" id="addbtn" name="addbtn"><i class="bx bx-book-add"></i></button>
 														</td>
 													</tr>
 													<cfset slno="1">																										
-													<cfloop index="i" from="1" to="#locations.RecordCount#">														
+													<cfloop index="i" from="1" to="#languages.RecordCount#">														
 														<tr>
 															<td>
 																#slno#	
 															</td>
 															<td>
-																#locations.locationname[i]#
+																#languages.languagename[i]#
 															</td>
 															<td>
-																<a title="DETELE" href="Components/adminsettings.cfc?method=deletelocation&id=#locations.id#">
+																<a title="DETELE" href="Components/adminsettings.cfc?method=deletelanguages&id=#languages.id[i]#">
 																<i class="bx bx-trash" aria-hidden="true"></i>
 															</td>
 														</tr>

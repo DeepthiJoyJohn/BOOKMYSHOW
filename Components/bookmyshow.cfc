@@ -21,7 +21,7 @@
 	<cffunction name="geteventtypes" access="remote">		
 		<CFQUERY NAME="local.eventtypes" DATASOURCE="bookmyshow">
 			SELECT 
-				eventtypename
+				eventtypename,id
 			FROM 
 				eventtypes
 			ORDER BY 
@@ -36,7 +36,7 @@
 	<cffunction name="getlocations" access="remote">		
 		<CFQUERY NAME="local.locationlist" DATASOURCE="bookmyshow">
 			SELECT 
-				locationname
+				locationname,id
 			FROM 
 				locations							
 			ORDER BY 
@@ -51,7 +51,7 @@
 	<cffunction name="getlanguage" access="remote">		
 		<CFQUERY NAME="local.languagelist" DATASOURCE="bookmyshow">
 			SELECT 
-				languagename
+				languagename,id
 			FROM 
 				languages
 			ORDER BY 
@@ -60,19 +60,23 @@
 		</CFQUERY>
 		<cfreturn local.languagelist>
 	</cffunction> 
-	<!--End-->
+	<!--End--> 
 
+	<!--function to get Events for listing-->
 	<cffunction name="geteventimages" access="remote">
 		<cfargument name="location">
 		<cfargument name="event">
 		<cfargument name="language">
+		<cfargument name="listing">
 		<CFQUERY NAME="local.eventimages" DATASOURCE="bookmyshow">
 			SELECT 
-				eventpath,eventname,eventrate,HOUR(eventtime) AS hr,MINUTE(eventtime) AS mi
+				id,eventpath,eventname,eventtype,eventlanguage,eventrate,HOUR(eventtime) AS hr,MINUTE(eventtime) AS mi
 			FROM 
 				events
+			<cfif #arguments.listing# neq "admin">
 			WHERE
 				DATE(NOW()) <= eventfrom 
+			</cfif>
 			<cfif #arguments.location# neq "">
 				AND eventlocation="#arguments.location#"
 			</cfif>
@@ -85,6 +89,9 @@
 		</CFQUERY>		
 		<cfreturn local.eventimages>
 	</cffunction>  
+	<!--End-->
+
+
     <cffunction name="login" access="remote">
         <cfargument name="Uname">
 		<cfargument name="Pass">
@@ -113,6 +120,8 @@
 		</cfif>
 		<cfreturn local.errorarray>
     </cffunction>
+
+
     <cffunction name="signup" access="public">
         <cfargument name="form">
 		<cfset local.errorarray=ArrayNew(1)>
@@ -148,7 +157,9 @@
 			</cfif>			
 		</cfif>
         <cfreturn local.errorarray>
-    </cffunction>	
+    </cffunction>
+
+
 	<cffunction name="gettheatreinfo" access="remote">
 	    <cfargument name="datepicker">
 		<cfargument name="eventid">
@@ -177,6 +188,8 @@
 		</cfif>
 		<cfreturn local.gettheatreinfo>
 	</cffunction>	
+
+
 	<cffunction name="getseats" access="remote">
 		<cfargument name="theatreid">	
 		<CFQUERY NAME="local.getseats" DATASOURCE="bookmyshow">
@@ -189,6 +202,8 @@
 		</CFQUERY>
 		<cfreturn local.getseats>
 	</cffunction>
+
+
 	<cffunction name="getseatdetails" access="remote">
 		<cfargument name="eventid">
 		<cfargument name="theatredetailsid">
@@ -210,6 +225,8 @@
 		</CFQUERY>
 		<cfreturn local.getseatdetails>
 	</cffunction>
+
+
 	<cffunction name="getcountofselected" access="remote">
 		<cfargument name="theatredetailsid">
 		<CFQUERY NAME="local.getcountofselected" DATASOURCE="bookmyshow">
@@ -224,6 +241,8 @@
 		</CFQUERY>
 		<cfreturn local.getcountofselected> 
 	</cffunction>
+
+
 	<cffunction name="updateseatstatus" access="remote">
 		<CFQUERY NAME="local.getseatstatus" DATASOURCE="bookmyshow">
 			SELECT 
@@ -253,6 +272,8 @@
 			</CFQUERY>
 		</cfif>
 	</cffunction>
+
+
 	<cffunction name="updatepayment" access="remote">	
 		<CFQUERY NAME="local.selectseatids" DATASOURCE="bookmyshow">
 				select 
@@ -273,4 +294,5 @@
 			</CFQUERY>
 		</cfloop>
 	</cffunction>
+
 </cfcomponent>  

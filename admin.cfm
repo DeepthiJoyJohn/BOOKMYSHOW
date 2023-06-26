@@ -18,7 +18,16 @@
 					</div>
 					<nav id="navbar" class="nav-menu navbar">
 						<ul>			          	
-							<li><a href="locations.cfm" class="nav-link scrollto"><i class="bx bx-log-out"></i> <span>Locations</span></a></li>		          
+							<li><a href="locations.cfm" class="nav-link scrollto"><i class="bx bx-log-out"></i><span>Add Locations</span></a></li>		          
+						</ul>
+						<ul>			          	
+							<li><a href="eventtypes.cfm" class="nav-link scrollto"><i class="bx bx-log-out"></i><span>Add EventTypes</span></a></li>		          
+						</ul>
+						<ul>			          	
+							<li><a href="languages.cfm" class="nav-link scrollto"><i class="bx bx-log-out"></i><span>Add Languages</span></a></li>		          
+						</ul>
+						<ul>			          	
+							<li><a href="events.cfm" class="nav-link scrollto"><i class="bx bx-log-out"></i><span>Add Events</span></a></li>		          
 						</ul>
 						<ul>			          	
 							<li><a href="index.cfm" class="nav-link scrollto"><i class="bx bx-log-out"></i> <span>logout</span></a></li>		          
