@@ -64,7 +64,7 @@
 	</cffunction>
 	<!--End-->
 
-	<!--Delete eventtype-->
+	<!--Delete language-->
 	<cffunction name="deletelanguages" access="remote">
 		<cfargument name="id">
 		<cfquery name="local.deletelanguages" datasource="bookmyshow">
@@ -125,7 +125,7 @@
    	    	<cfset ArrayAppend(local.errorarray, "eventtomssg")> 
 			<cfset local.flag="false"> 
    	    </cfif>
-		<cfquery name="local.createcontact" datasource="bookmyshow">
+		<cfquery name="local.createevents" datasource="bookmyshow">
 			INSERT INTO 
 				events (eventpath,eventtype,eventname,eventrate,eventtime,eventlocation,eventfrom,
 				eventto,eventlanguage)  
@@ -144,6 +144,50 @@
 		</cfquery>
 		<cfreturn local.errorarray>        
     </cffunction>
+	<!--End-->
+
+	<!--Delete events-->
+	<cffunction name="deleteevents" access="remote">
+		<cfargument name="id">
+		<cfquery name="local.deleteevents" datasource="bookmyshow">
+				DELETE 
+				FROM
+					events
+				WHERE 
+					(id=<cfqueryparam value="#arguments.id#" cfsqltype="CF_SQL_INTEGER">)
+		</cfquery> 
+		<cflocation url="../events.cfm">
+	</cffunction>
+	<!--End-->
+
+	<!--Delete theatre-->
+	<cffunction name="deletetheatre" access="remote">
+		<cfargument name="id">
+		<cfquery name="local.deletetheatre" datasource="bookmyshow">
+				DELETE 
+				FROM
+					theatre
+				WHERE 
+					(id=<cfqueryparam value="#arguments.id#" cfsqltype="CF_SQL_INTEGER">)
+		</cfquery> 
+		<cflocation url="../theatres.cfm">
+	</cffunction>
+	<!--End-->
+
+	<!--Insert to theatre table-->
+	<cffunction name="addtheatres" access="remote">
+		<cfargument name="theatrename">
+		<cfargument name="theatreaddress">
+		<cfargument name="showtime">
+		<cfquery name="local.addtheatre" datasource="bookmyshow">
+				INSERT INTO
+					theatre (theatrename,theatreadd,showtime)
+				VALUES 
+					(<cfqueryparam value="#arguments.theatrename#" cfsqltype="CF_SQL_VARCHAR">,
+					<cfqueryparam value="#arguments.theatreaddress#" cfsqltype="CF_SQL_VARCHAR">,
+					<cfqueryparam value="#arguments.showtime#" cfsqltype="CF_SQL_VARCHAR">)
+		</cfquery> 
+	</cffunction>
 	<!--End-->
 
 </cfcomponent>  

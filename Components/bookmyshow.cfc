@@ -70,9 +70,18 @@
 		<cfargument name="listing">
 		<CFQUERY NAME="local.eventimages" DATASOURCE="bookmyshow">
 			SELECT 
-				id,eventpath,eventname,eventtype,eventlanguage,eventrate,HOUR(eventtime) AS hr,MINUTE(eventtime) AS mi
+				events.id as id,locations.locationname,languages.languagename,eventtypes.eventtypename 
+				as eventtypename,eventpath,eventname,eventtype,eventlanguage,eventrate,HOUR(eventtime) 
+				AS hr,MINUTE(eventtime) AS mi,DATE_FORMAT(eventfrom, "%d-%m-%Y") as eventfrom,
+				DATE_FORMAT(eventto, "%d-%m-%Y") as eventto
 			FROM 
-				events
+				events 
+			INNER JOIN 
+				eventtypes on (eventtypes.id=events.eventtype)
+			INNER JOIN 
+				languages on (languages.id=events.eventlanguage)
+			INNER JOIN 
+				locations on (locations.id=events.eventlocation)
 			<cfif #arguments.listing# neq "admin">
 			WHERE
 				DATE(NOW()) <= eventfrom 
@@ -91,7 +100,7 @@
 	</cffunction>  
 	<!--End-->
 
-
+    <!--Assiging Session in login-->
     <cffunction name="login" access="remote">
         <cfargument name="Uname">
 		<cfargument name="Pass">
@@ -120,8 +129,9 @@
 		</cfif>
 		<cfreturn local.errorarray>
     </cffunction>
+	<!--End-->
 
-
+	<!--Sign Up-->
     <cffunction name="signup" access="public">
         <cfargument name="form">
 		<cfset local.errorarray=ArrayNew(1)>
@@ -158,37 +168,19 @@
 		</cfif>
         <cfreturn local.errorarray>
     </cffunction>
+	<!--End-->
 
-
-	<cffunction name="gettheatreinfo" access="remote">
-	    <cfargument name="datepicker">
-		<cfargument name="eventid">
-		<cfif isDefined("arguments.datepicker")>
-			<CFQUERY NAME="local.gettheatreinfo" DATASOURCE="bookmyshow">
-			SELECT 
-				theatre.theatrename,theatre.eventid,theatre.theatreadd,HOUR(theatre.showtime) AS hr,MINUTE(theatre.showtime) AS mi
-			FROM 
-				theatre	inner join events on (events.id=theatre.eventid)
-			WHERE 
-				theatre.eventid="#arguments.eventid#" AND "#arguments.datepicker#" BETWEEN events.eventfrom AND events.eventto
-			ORDER BY 
-				theatre.id
-		</CFQUERY>
-		<cfelse>
+	<cffunction name="gettheatreinfo" access="remote">		
 		<CFQUERY NAME="local.gettheatreinfo" DATASOURCE="bookmyshow">
 			SELECT 
-				theatre.theatrename,theatre.eventid,theatre.theatreadd,HOUR(theatre.showtime) AS hr,MINUTE(theatre.showtime) AS mi
+				theatre.id,theatre.theatrename,theatre.eventid,theatre.theatreadd,HOUR(theatre.showtime) AS hr,MINUTE(theatre.showtime) AS mi
 			FROM 
-				theatre	inner join events on (events.id=theatre.eventid)
-			WHERE 
-				theatre.eventid="#arguments.eventid#" AND DATE(NOW()) BETWEEN events.eventfrom AND events.eventto
+				theatre
 			ORDER BY 
 				theatre.id
 		</CFQUERY>
-		</cfif>
 		<cfreturn local.gettheatreinfo>
-	</cffunction>	
-
+	</cffunction>
 
 	<cffunction name="getseats" access="remote">
 		<cfargument name="theatreid">	
@@ -202,7 +194,6 @@
 		</CFQUERY>
 		<cfreturn local.getseats>
 	</cffunction>
-
 
 	<cffunction name="getseatdetails" access="remote">
 		<cfargument name="eventid">
@@ -226,7 +217,6 @@
 		<cfreturn local.getseatdetails>
 	</cffunction>
 
-
 	<cffunction name="getcountofselected" access="remote">
 		<cfargument name="theatredetailsid">
 		<CFQUERY NAME="local.getcountofselected" DATASOURCE="bookmyshow">
@@ -241,7 +231,6 @@
 		</CFQUERY>
 		<cfreturn local.getcountofselected> 
 	</cffunction>
-
 
 	<cffunction name="updateseatstatus" access="remote">
 		<CFQUERY NAME="local.getseatstatus" DATASOURCE="bookmyshow">
@@ -272,7 +261,6 @@
 			</CFQUERY>
 		</cfif>
 	</cffunction>
-
 
 	<cffunction name="updatepayment" access="remote">	
 		<CFQUERY NAME="local.selectseatids" DATASOURCE="bookmyshow">

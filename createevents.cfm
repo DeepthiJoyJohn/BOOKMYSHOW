@@ -15,49 +15,22 @@
 	<cfinvoke component="BOOKMYSHOW.Components.bookmyshow"  method="getlanguage" returnVariable="languages">
 	<body>	
         <section  class="d-flex flex-column justify-content-center align-items-center">
-            <cfset id=0>
-            <cfset title="Mr">
-            <cfset firstname="">
-            <cfset lastname="">
-            <cfset gender="Male">
-            <cfset dob="">
-            <cfset photo="">
-            <cfset address="">
-            <cfset street="">
-            <cfset email="">
-            <cfset phone="">
+            
             <cfset btnname="Submit">
             <cfset btnvalue="Create & Close">            
             <cfset display="block">
-            <cfif #url.id# neq 0 AND #url.id# neq "">
-                <cfset contactdetails = EntityNew("contactdetails")>
-                <cfset contactdetails = EntityLoad('contactdetails', {id=#url.id#}, true)>
-                <cfset id=contactdetails.getid()>
-                <cfset title=contactdetails.gettitle()>
-                <cfset firstname=contactdetails.getfirstname()>
-                <cfset lastname=contactdetails.getlastname()>
-                <cfset gender=contactdetails.getgender()>
-                <cfset dob=contactdetails.getdob()>
-                <cfset photo=contactdetails.getphoto()>
-                <cfset address=contactdetails.getaddress()>
-                <cfset street=contactdetails.getstreet()>
-                <cfset email=contactdetails.getemail()>
-                <cfset phone=contactdetails.getphone()>	
-                <cfset btnname="Update">
-                <cfset btnvalue="Update & Close">                       
-            </cfif>
             <cfif url.view eq "true">
                 <cfset display="none">	
             </cfif>
-            <cfset titlemssg="">
-            <cfset firstnamemssg="">
-            <cfset lastnamemssg="">
-            <cfset gendermssg="">
-            <cfset dobmssg="">
-            <cfset addressmssg="">
-            <cfset streetmssg="">
-            <cfset emailmssg="">
-            <cfset phonemssg="">
+            <cfset eventtypemssg="">
+            <cfset eventnamemssg="">
+            <cfset eventlocationmssg="">
+            <cfset eventlanguagemssg="">
+            <cfset eventratemssg="">
+            <cfset eventtimemssg="">
+            <cfset eventpathmssg="">
+            <cfset eventfrommssg="">
+            <cfset eventtomssg="">
             <cfif isDefined("form.Submit")>
                 <cfinvoke component="BOOKMYSHOW.Components.adminsettings" method="createevents" 
                 form="#form#" returnVariable="res">
@@ -115,12 +88,12 @@
                                             <OPTION VALUE="#id#">#eventtypename#</OPTION>
                                         </cfloop>
                                     </select><br>
-									<span id="eventtypespan"></span>
+									<span id="eventtypespan">#eventtypemssg#</span>
                                 </td>
                                 <td>
                                     <label class="form-label">Event Name</label><br>
                                     <input type="text" class="form-control-sm" name="eventname" maxlength="25" id="eventname" required="yes" value="#firstname#"><br>
-                                    <span id="eventnamespan"></span>
+                                    <span id="eventnamespan">#eventnamemssg#</span>
                                 </td>
 								<td>
                                     <label class="form-label">Event Location</label><br> 
@@ -130,7 +103,7 @@
                                             <OPTION VALUE="#id#">#locationname#</OPTION>
                                         </cfloop>
                                     </select><br>
-									<span id="eventlocationspan"></span>
+									<span id="eventlocationspan">#eventlocationmssg#</span>
                                 </td>
 								<td>
                                     <label class="form-label">Event Language</label><br> 
@@ -140,7 +113,7 @@
                                             <OPTION VALUE="#id#">#languagename#</OPTION>
                                         </cfloop>
                                     </select><br>
-									<span id="eventlanguagespan"></span>
+									<span id="eventlanguagespan">#eventlanguagemssg#</span>
                                 </td>                                 
                             </tr>
                             <tr>								
@@ -159,17 +132,17 @@
 										<OPTION VALUE="9">9</OPTION>
 										<OPTION VALUE="10">10</OPTION>
                                     </select><br>
-									<span id="eventratespan"></span>
+									<span id="eventratespan">#eventratemssg#</span>
                                 </td>
 								<td>
                                     <label class="form-label">Event Time</label><br>
                                     <input type="time" id="eventtime" name="eventtime" class="form-control-sm" min="00:00" max="24:00" required><br>
-									<span id="eventtimespan"></span>
+									<span id="eventtimespan">#eventtimemssg#</span>
                                 </td>
 								<td colspan="2">
 									<label class="form-label">Event Image</label><br>
-								 	<input class="form-control-sm" type="file" name="eventpath" id="eventpath" value=""><br>
-									<span id="eventpathspan"></span>
+								 	<input class="form-control-sm" type="file" name="eventpath" id="eventpath" value="" required="yes"><br>
+									<span id="eventpathspan">#eventpathmssg#</span>
 								</td>              
                             </tr>
                         </table>
@@ -179,13 +152,13 @@
                             <tr>
 								<td>
 									<label class="form-label">Event From</label><br>
-                                    <input type="date" id="eventfrom" name="eventfrom"><br>
-									<span id="eventfromspan"></span>                                   
+                                    <input type="date" id="eventfrom" name="eventfrom" required="yes"><br>
+									<span id="eventfromspan">#eventfrommssg#</span>                                   
                                 </td>
 								<td>
 									<label class="form-label">Event To</label><br>
-                                    <input type="date" id="eventto" name="eventto"><br>
-									<span id="eventtospan"></span>                                    
+                                    <input type="date" id="eventto" name="eventto" required="yes"><br>
+									<span id="eventtospan">#eventtomssg#</span>                                    
                                 </td>
                             </tr>
 							<tr>

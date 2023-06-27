@@ -9,7 +9,7 @@
 			<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>		
 			<script src="js/home.js" type="text/javascript"></script>
 		</head>
-		<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" location="" event="" language="" listing="admin" method="geteventimages" returnVariable="events">
+		<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="gettheatreinfo" returnVariable="theatres">
 		<body>
 			<header id="header">			
 				<div class="d-flex flex-column">
@@ -29,9 +29,9 @@
 			<cfoutput>	
 				<section  class="d-flex flex-column justify-content-center align-items-center">				
 				<form id="form" name="form" method="post" action="">
-					<cfif isDefined("form.addbtn") AND (form.eventtypename neq "")>
-						<cfinvoke component="BOOKMYSHOW.Components.adminsettings" eventtypename="#form.eventtypename#" method="addeventtypes" >
-						<cflocation url="eventtypes.cfm">
+					<cfif isDefined("form.addbtn") AND (form.theatrename neq "" AND form.theatreaddress neq "" AND form.showtime neq "")>
+						<cfinvoke component="BOOKMYSHOW.Components.adminsettings" theatrename="#form.theatrename#" showtime="#form.showtime#" theatreaddress="#form.theatreaddress#"method="addtheatres" >
+						<cflocation url="theatres.cfm">
 					</cfif> 
 					<div class="container h-100 bodyclass">
 						<div class="row d-flex justify-content-center align-items-center h-100">
@@ -46,53 +46,51 @@
 															<b>SL:NO</b>
 														</td>														
 														<td>
-															<b>EVENT NAME</b>
+															<b>THEATRE NAME</b>
 														</td>
 														<td>
-															<b>EVENT TYPE</b>
+															<b>THEATRE ADDRESS</b>
 														</td>
 														<td>
-															<b>EVENT LOCATION</b>
-														</td>
-														<td>
-															<b>EVENT LANGUAGE</b>
-														</td>
-														<td>
-															<b>EVENT FROM</b>
-														</td>
-														<td>
-															<b>EVENT TO</b>
-														</td>
-														<td>
-															<button type="button" class="btn btn-success btn-sm" onclick="window.open('createevents.cfm?view=false&id=0','popUpWindow','height=600,width=950');" ><i class="bx bx-book-add"></i></button>	
+															<b>SHOW TIME</b>
 														</td>
 													</tr>
+													<tr>
+													    <td></td>
+														<td>
+															<input type="text" class="form-control-sm" id="theatrename" name="theatrename"><br>
+															<span id="errornamediv"></span>
+														</td>
+														<td>
+															<textarea id="theatreaddress" name="theatreaddress" class="form-control-sm"></textarea><br>
+															<span id="errornamediv1"></span>
+														</td>
+														<td>
+															<input type="time" class="form-control-sm" id="showtime" name="showtime"><br>
+															<span id="errornamediv2"></span>
+														</td>
+														<td>
+															<button class="btn btn-primary btn-xs" onclick="checknullthea();" type="submit" id="addbtn" name="addbtn"><i class="bx bx-book-add"></i></button>
+														</td>
+
+													</tr>
 													<cfset slno="1">																										
-													<cfloop index="i" from="1" to="#events.RecordCount#">														
+													<cfloop index="i" from="1" to="#theatres.RecordCount#">														
 														<tr>
 															<td>
 																#slno#	
 															</td>
 															<td>
-																#events.eventname[i]#
+																#theatres.theatrename[i]#
 															</td>
 															<td>
-																#events.eventtypename[i]#
+																#theatres.theatreadd[i]#
 															</td>
 															<td>
-																#events.locationname[i]#
+																#theatres.hr[i]#:#theatres.mi[i]#
 															</td>
 															<td>
-																#events.languagename[i]#
-															</td>
-															<td>
-																#events.eventfrom[i]#
-															</td>
-															<td>
-																#events.eventto[i]#
-															</td>
-															<td>
-																<a title="DETELE" href="Components/adminsettings.cfc?method=deleteevents&id=#events.id[i]#">
+																<a title="DETELE" href="Components/adminsettings.cfc?method=deletetheatre&id=#theatres.id[i]#">
 																<i class="bx bx-trash" aria-hidden="true"></i>
 															</td>
 														</tr>

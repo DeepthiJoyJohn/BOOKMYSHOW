@@ -1,12 +1,14 @@
+window.onunload = refreshParent;
+    function refreshParent() {
+		
+        window.opener.location.reload();
+		window.close();
+    }
 $(document).ready( function() {
 	$('#datepicker').attr('min',today); 	
 	
 });
-window.onunload = refreshParent;
-    function refreshParent() {
-        window.opener.location.reload();
-		window.close();
-    }
+
 function comboassign(value) {
    document.form.submit();
 }
@@ -15,6 +17,23 @@ function checknull() {
 	if(locationname==""){
       document.getElementById("errornamediv").innerHTML="Please Enter Location Name!!";
 	  return false;
+	}
+ }
+ function checknullthea() {
+	var theatrename=document.getElementById("theatrename").value;	
+	if(theatrename==""){
+      document.getElementById("errornamediv").innerHTML="Required!!";
+	  
+	}
+	var theatreaddress=document.getElementById("theatreaddress").value;	
+	if(theatreaddress==""){
+      document.getElementById("errornamediv1").innerHTML="Required!!";
+	  
+	}
+	var showtime=document.getElementById("showtime").value;	
+	if(showtime==""){
+      document.getElementById("errornamediv2").innerHTML="Required!!";
+	  
 	}
  }
 function checknulllan() {
@@ -85,33 +104,45 @@ function eventcheck(){
 	document.getElementById("eventpathspan").innerHTML="";
 	document.getElementById("eventfromspan").innerHTML="";
 	document.getElementById("eventtospan").innerHTML="";
-	
+	var flag="1";
 		if(eventtype=="" || eventtype==null){
-			document.getElementById("eventtypespan").innerHTML="Required";				
+			document.getElementById("eventtypespan").innerHTML="Required";	
+			flag=0;			
 		}
 		if(eventname=="" || eventname==null){
-		 	document.getElementById("eventnamespan").innerHTML="Required";			 
+		 	document.getElementById("eventnamespan").innerHTML="Required";
+			 flag=0;				 
 		}
 		if(eventlocation=="" || eventlocation==null){
-			document.getElementById("eventlocationspan").innerHTML="Required";					
+			document.getElementById("eventlocationspan").innerHTML="Required";	
+			flag=0;					
 		}
 		if(eventlanguage=="" || eventlanguage==null){
-			document.getElementById("eventlanguagespan").innerHTML="Required";								
+			document.getElementById("eventlanguagespan").innerHTML="Required";
+			flag=0;									
 		}
 		if(eventrate=="" || eventrate==null){
-			document.getElementById("eventratespan").innerHTML="Required";								
+			document.getElementById("eventratespan").innerHTML="Required";	
+			flag=0;								
 		}
 		if(eventtime=="" || eventtime==null){
-			document.getElementById("eventtimespan").innerHTML="Required";								
+			document.getElementById("eventtimespan").innerHTML="Required";	
+			flag=0;								
 		}
 		if(eventpath=="" || eventpath==null){
-			document.getElementById("eventpathspan").innerHTML="Required";								
+			document.getElementById("eventpathspan").innerHTML="Required";	
+			flag=0;								
 		}
 		if(eventfrom=="" || eventfrom==null){
-			document.getElementById("eventfromspan").innerHTML="Required";								
+			document.getElementById("eventfromspan").innerHTML="Required";
+			flag=0;									
 		}
 		if(eventto=="" || eventto==null){
-			document.getElementById("eventtospan").innerHTML="Required";								
-		}			 
+			document.getElementById("eventtospan").innerHTML="Required";
+			flag=0;									
+		}	
+		if(flag==0){
+			return false;
+		}		 
 }
 
