@@ -92,7 +92,7 @@
                                 </td>
                                 <td>
                                     <label class="form-label">Event Name</label><br>
-                                    <input type="text" class="form-control-sm" name="eventname" maxlength="25" id="eventname" required="yes" value="#firstname#"><br>
+                                    <input type="text" class="form-control-sm" name="eventname" maxlength="25" id="eventname" required="yes" value=""><br>
                                     <span id="eventnamespan">#eventnamemssg#</span>
                                 </td>
 								<td>

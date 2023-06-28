@@ -82,9 +82,9 @@
 				languages on (languages.id=events.eventlanguage)
 			INNER JOIN 
 				locations on (locations.id=events.eventlocation)
+			WHERE 1
 			<cfif #arguments.listing# neq "admin">
-			WHERE
-				DATE(NOW()) <= eventfrom 
+				AND DATE(NOW()) <= eventfrom 
 			</cfif>
 			<cfif #arguments.location# neq "">
 				AND eventlocation="#arguments.location#"

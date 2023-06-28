@@ -18,6 +18,9 @@
 			        <ul>			          	
 			          	<li><a href="index.cfm" class="nav-link scrollto"><i class="bx bx-log-out"></i> <span>logout</span></a></li>		          
 			        </ul>
+					<ul>			          	
+			          	<li><a href="home.cfm" class="nav-link scrollto"><i class="bx bx-log-out"></i> <span>Back</span></a></li>		          
+			        </ul>
 		        </nav>			      		      	
 		    </div>
 		</header>

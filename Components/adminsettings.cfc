@@ -83,10 +83,10 @@
         <cfargument name="form"> 
         <cfset local.filename="">
         <cfif isDefined("form.eventpath") AND evaluate("form.eventpath") NEQ "" >
-            <cffile action="upload" fileField="form.eventpath" destination="Events" 
+            <cffile action="upload" fileField="form.eventpath" destination="#expandpath('./')#/Events" 
             accept="image/png,image/jpg,image/gif,image/jpeg"  
             nameconflict="makeunique">
-            <cfset local.filename="#cffile.serverdirectory#/#cffile.serverfile#">            
+            <cfset local.filename="#cffile.serverfile#">            
    	    </cfif> 
 		<cfset local.errorarray=ArrayNew(1)>
 		<cfset local.flag="true"> 		
