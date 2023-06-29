@@ -125,10 +125,14 @@
    	    	<cfset ArrayAppend(local.errorarray, "eventtomssg")> 
 			<cfset local.flag="false"> 
    	    </cfif>
+		 <cfif form.theatres EQ "">   	   
+   	    	<cfset ArrayAppend(local.errorarray, "theatresmssg")> 
+			<cfset local.flag="false"> 
+   	    </cfif>
 		<cfquery name="local.createevents" datasource="bookmyshow">
 			INSERT INTO 
 				events (eventpath,eventtype,eventname,eventrate,eventtime,eventlocation,eventfrom,
-				eventto,eventlanguage)  
+				eventto,eventlanguage,theatres)  
 			VALUES
 				(
 				<cfqueryparam value="#local.filename#" cfsqltype="CF_SQL_VARCHAR">,
@@ -139,7 +143,8 @@
 				<cfqueryparam value="#form.eventlocation#" cfsqltype="CF_SQL_VARCHAR">,
 				<cfqueryparam value="#form.eventfrom#" cfsqltype="CF_SQL_DATE">,
 				<cfqueryparam value="#form.eventto#" cfsqltype="CF_SQL_DATE">,
-				<cfqueryparam value="#form.eventlanguage#" cfsqltype="CF_SQL_VARCHAR">				
+				<cfqueryparam value="#form.eventlanguage#" cfsqltype="CF_SQL_VARCHAR">,
+				<cfqueryparam value="#form.theatres#" cfsqltype="CF_SQL_VARCHAR">								
 				)
 		</cfquery>
 		<cfreturn local.errorarray>        

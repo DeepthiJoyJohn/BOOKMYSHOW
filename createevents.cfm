@@ -13,9 +13,9 @@
 	<cfinvoke component="BOOKMYSHOW.Components.bookmyshow"  method="geteventtypes" returnVariable="eventtype">
 	<cfinvoke component="BOOKMYSHOW.Components.bookmyshow"  method="getlocations" returnVariable="locations">
 	<cfinvoke component="BOOKMYSHOW.Components.bookmyshow"  method="getlanguage" returnVariable="languages">
+    <cfinvoke component="BOOKMYSHOW.Components.bookmyshow"  datepicker="#LSDateFormat(now(), 'yyyy-mm-dd')#" method="gettheatreinfo" returnVariable="theatres">
 	<body>	
         <section  class="d-flex flex-column justify-content-center align-items-center">
-            
             <cfset btnname="Submit">
             <cfset btnvalue="Create & Close">            
             <cfset display="block">
@@ -31,6 +31,7 @@
             <cfset eventpathmssg="">
             <cfset eventfrommssg="">
             <cfset eventtomssg="">
+            <cfset theatresmssg="">
             <cfif isDefined("form.Submit")>
                 <cfinvoke component="BOOKMYSHOW.Components.adminsettings" method="createevents" 
                 form="#form#" returnVariable="res">
@@ -66,6 +67,10 @@
                 </cfif>
                 <cfif  ArrayContains(res, "eventtomssg")>
                     <cfset eventtomssg="Required">
+                    <cfset local.flag="false"> 
+                </cfif>
+                <cfif  ArrayContains(res, "theartsmssg")>
+                    <cfset theartsmssgmssg="Required">
                     <cfset local.flag="false"> 
                 </cfif>
                 <cfif local.flag eq "true">
@@ -160,6 +165,16 @@
                                     <input type="date" id="eventto" name="eventto" required="yes"><br>
 									<span id="eventtospan">#eventtomssg#</span>                                    
                                 </td>
+                                <td>
+									<label class="form-label">Theatre Running</label><br>
+                                    <select class="form-select-sm"  name="theatres" id="theatres" required="yes">
+                                            <OPTION VALUE="">Select</OPTION>
+                                            <cfloop query="theatres">
+                                                <OPTION VALUE="#theatres.id#">#theatres.theatrename#</OPTION>
+                                            </cfloop>
+                                    </select><br>
+                                    <span id="theartsmssgspan">#theatresmssg#</span>
+                                </td>
                             </tr>
 							<tr>
 								<td><br>
@@ -169,12 +184,7 @@
                         </table>                
                     </div>
                 </cfoutput>
-            </form>             
-            <cfif isDefined("form.Update")>
-                <cfinvoke component="ADDRESSBOOK.Components.addressbook" method="updatecontact" 
-                form="#form#">
-                <cflocation url="listing.cfm" addtoken="no">
-            </cfif>	    
+            </form> 
         </section>
 	</body>
 </html>

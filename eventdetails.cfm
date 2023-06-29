@@ -29,7 +29,7 @@
 			<cfset datevalue="#form.datepicker#">
 			<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" eventid="#url.id#" datepicker="#form.datepicker#" method="gettheatreinfo" returnVariable="theatre">					
 		<cfelse>
-			<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" eventid="#url.id#" method="gettheatreinfo" returnVariable="theatre">		
+			<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" eventid="#url.id#" datepicker="" method="gettheatreinfo" returnVariable="theatre">		
 		</cfif>		
 		<cfoutput>
 			<section  class="d-flex flex-column justify-content-center align-items-center">				
@@ -64,7 +64,7 @@
 																#theatre.theatrename[i]#  #theatre.theatreadd[i]#
 															</td>
 															<td>
-																<button type="button" onclick="eventseats(#i#,#theatre.eventid#,form.datepicker)" class="btn btn-outline-dark">#theatre.hr[i]# : #theatre.mi[i]#</button>
+																<button type="button" onclick="eventseats(#i#,#theatre.id#,form.datepicker)" class="btn btn-outline-dark">#theatre.hr[i]# : #theatre.mi[i]#</button>
 															</td>
 															<cfif i%1 eq 0>
 																<tr>

@@ -7,6 +7,7 @@
 	    <link href="show/css/style.css" rel="stylesheet">
 		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>	
 		<script src="js/home.js" type="text/javascript"></script>
+		<script src="js/seat.js" type="text/javascript"></script>
 	</head>	
 	<body>	
 		<header id="header">			
@@ -45,7 +46,8 @@
 																	<cfloop index="y" from="1" to="#seats.noofrows[i]#">
 																		<tr>
 																			<cfloop index="x" from="1" to="#seats.noofcols[i]#">
-																				<cfloop index="z" from="1" to="#seatsdetails.RecordCount#">
+																			    <td><button type="button" name="seatbtn" onclick="selectseat("#i##y##x#")" id="#i##y##x#" class="">#x#</button></td>
+																				<!--<cfloop index="z" from="1" to="#seatsdetails.RecordCount#">
 																				    <cfif #seatsdetails.seatstatus[z]# eq "sold">
 																						<cfset disable="disabled">
 																					<cfelse>
@@ -54,7 +56,7 @@
 																					<cfif ((#seatsdetails.rowno[z]# eq #y#) AND (#seatsdetails.colno[z]# eq #x#)) AND (#seats.id[i]# eq #seatsdetails.theatredetailsid[z]#)>																		     
 																						<td><button #disable# type="button" onclick="markseat(#seatsdetails.id[z]#)" id="#seatsdetails.id[z]#" class="#seatsdetails.seatstatus[z]#">#seatsdetails.value[z]#</button></td>																																											
 																					</cfif>
-																				</cfloop>															
+																				</cfloop>-->															
 																			</cfloop>
 																		</tr>
 																	</cfloop>
@@ -63,16 +65,12 @@
 														</tr>
 													</table>
 												</cfloop>
-												<table>
-													<cfif #seats.RecordCount# gte 1>
+												<table class="table">
 													<tr>
-														<td><button class="available">&nbsp;</button><b> available</b></td>
-														<td><button class="selected">&nbsp;</button><b> selected</b></td>
-														<td><button class="sold">&nbsp;</button><b> sold</b><div id="1"></div></td>
+														<td><button class="btn btn-light btn-sm">&nbsp;</button><b> available</b></td>
+														<td><button class="btn btn-success btn-sm">&nbsp;</button><b> selected</b></td>
+														<td><button class="btn btn-secondary btn-sm">&nbsp;</button><b> sold</b></td>
 													</tr>
-													<cfelse>
-														<span>No seats defined!!!</span>
-													</cfif>
 													<cfif #countofselected.RecordCount# gte 1>
 														<tr>
 															<cfset totalamt=(#countofselected.cellamt#)*(#countofselected.RecordCount#)>

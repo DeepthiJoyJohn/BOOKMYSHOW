@@ -170,12 +170,22 @@
     </cffunction>
 	<!--End-->
 
-	<cffunction name="gettheatreinfo" access="remote">		
+	<cffunction name="gettheatreinfo" access="remote">	
+		<cfargument name="datepicker">	
+		<cfargument name="eventid">	
 		<CFQUERY NAME="local.gettheatreinfo" DATASOURCE="bookmyshow">
 			SELECT 
-				theatre.id,theatre.theatrename,theatre.eventid,theatre.theatreadd,HOUR(theatre.showtime) AS hr,MINUTE(theatre.showtime) AS mi
+				theatre.id,theatre.theatrename,theatre.theatreadd,HOUR(theatre.showtime) AS hr,MINUTE(theatre.showtime) AS mi
 			FROM 
 				theatre
+			<cfif #arguments.eventid# neq "">
+			INNER JOIN
+				events on (theatre.id=events.theatres)
+			</cfif>
+			WHERE 1 
+			<cfif #arguments.datepicker# neq "" and  #arguments.eventid# neq "">
+				AND "#arguments.datepicker#" BETWEEN events.eventfrom AND events.eventto
+			</cfif>
 			ORDER BY 
 				theatre.id
 		</CFQUERY>
@@ -188,9 +198,7 @@
 			SELECT 
 				*
 			FROM 
-				theatredetails	
-			WHERE 
-				theatreid="#arguments.theatreid#"	
+				theatredetails
 		</CFQUERY>
 		<cfreturn local.getseats>
 	</cffunction>
@@ -202,7 +210,7 @@
 			SELECT 
 				events.eventfrom,events.eventto,showtime
 			FROM 
-				events inner join theatre on (events.id=theatre.eventid) 	
+				events inner join theatre on (events.theatres=theatre.id) 	
 			WHERE 
 				events.id="#arguments.eventid#"	
 		</CFQUERY>
@@ -212,7 +220,9 @@
 			FROM 
 				theatreseatdetails left join theatreseatstatus on (theatreseatdetails.id=theatreseatstatus.seatid) 	
 			WHERE 
-				theatredetailsid="#arguments.theatredetailsid#" and "#url.datevalue#" = theatreseatstatus.showdate and ("#local.getevents.showtime#"=theatreseatstatus.showtime)
+				theatredetailsid="#arguments.theatredetailsid#" and 
+				"#url.datevalue#" = theatreseatstatus.showdate and 
+				("#local.getevents.showtime#"=theatreseatstatus.showtime)
 		</CFQUERY>
 		<cfreturn local.getseatdetails>
 	</cffunction>

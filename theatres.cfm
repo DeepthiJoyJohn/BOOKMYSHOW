@@ -9,7 +9,7 @@
 			<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>		
 			<script src="js/home.js" type="text/javascript"></script>
 		</head>
-		<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="gettheatreinfo" returnVariable="theatres">
+		<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" datepicker="" eventid="" method="gettheatreinfo" returnVariable="theatres">
 		<body>
 			<header id="header">			
 				<div class="d-flex flex-column">

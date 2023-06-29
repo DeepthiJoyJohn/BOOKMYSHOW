@@ -85,6 +85,11 @@ function markseat(value){
 		},
 	});
 }
+function selectseat(id){
+  
+
+
+}
 function eventcheck(){
 	var eventtype = document.getElementById("eventtype").value;
 	var eventname = document.getElementById("eventname").value;	
@@ -94,7 +99,8 @@ function eventcheck(){
 	var eventtime = document.getElementById("eventtime").value;	
 	var eventpath = document.getElementById("eventpath").value;
 	var eventfrom = document.getElementById("eventfrom").value;	
-	var eventto = document.getElementById("eventto").value;											
+	var eventto = document.getElementById("eventto").value;		
+	var theatres = document.getElementById("theatres").value;																				
 	document.getElementById("eventtypespan").innerHTML="";
 	document.getElementById("eventnamespan").innerHTML="";
 	document.getElementById("eventlocationspan").innerHTML="";
@@ -139,6 +145,10 @@ function eventcheck(){
 		}
 		if(eventto=="" || eventto==null){
 			document.getElementById("eventtospan").innerHTML="Required";
+			flag=0;									
+		}	
+		if(theatres=="" || theatres==null){
+			document.getElementById("theartsmssgspan").innerHTML="Required";
 			flag=0;									
 		}	
 		if(flag==0){
