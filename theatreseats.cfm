@@ -36,7 +36,7 @@
 										<div class="row justify-content-center">			            
 											<div>
 												<cfloop index="i" from="1" to="#seats.RecordCount#">												
-													<table class="table">
+													<table class="center" align="center">
 														<tr>
 															<td>#seats.theatretype[i]# Rs-#seats.cellamt[i]#</td>	
 														</tr>
@@ -45,8 +45,9 @@
 																<table>
 																	<cfloop index="y" from="1" to="#seats.noofrows[i]#">
 																		<tr>
+																			<cfset btnclass="btn btn-light btn-sm">
 																			<cfloop index="x" from="1" to="#seats.noofcols[i]#">
-																			    <td><button type="button" name="seatbtn" onclick="selectseat("#i##y##x#")" id="#i##y##x#" class="">#x#</button></td>
+																			    <td><button type="button" name="seatbtn" onclick="selectseat(#i##y##x#)" id="#i##y##x#" value="#seats.cellamt[i]#" class="#btnclass#">#x#</button></td>
 																				<!--<cfloop index="z" from="1" to="#seatsdetails.RecordCount#">
 																				    <cfif #seatsdetails.seatstatus[z]# eq "sold">
 																						<cfset disable="disabled">
@@ -65,18 +66,15 @@
 														</tr>
 													</table>
 												</cfloop>
-												<table class="table">
+												<table class="center" align="center">
 													<tr>
 														<td><button class="btn btn-light btn-sm">&nbsp;</button><b> available</b></td>
 														<td><button class="btn btn-success btn-sm">&nbsp;</button><b> selected</b></td>
 														<td><button class="btn btn-secondary btn-sm">&nbsp;</button><b> sold</b></td>
+													</tr>													
+													<tr>
+														<td colspan="3" align="center"><button type="submit" onclick="payamt("#url.datevalue#","#url.id#")" id="payamt" class="btn btn-danger btn-sm"><span class="btn" id="payamt"></span></button></td>
 													</tr>
-													<cfif #countofselected.RecordCount# gte 1>
-														<tr>
-															<cfset totalamt=(#countofselected.cellamt#)*(#countofselected.RecordCount#)>
-															<td><button onclick="payamt(#url.id#)" class="btn btn-danger btn-sm">Book & Pay Amt-#totalamt#</button></td>
-														</tr>
-													</cfif>
 												</table>
 											</div>											
 										</div>

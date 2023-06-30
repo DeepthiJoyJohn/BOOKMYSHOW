@@ -63,6 +63,10 @@ span {
   color: #f51818;
   font-size: 12px;
 }
+span.btn {
+  color: #fcfafa;
+  font-size: 12px;
+}
 span.message {
   margin-left: 20px;
   margin-top: 200px;

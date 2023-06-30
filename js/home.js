@@ -67,15 +67,7 @@ function eventdetails(value) {
 function eventseats(value,eventid,datevalue) {
 	window.location="theatreseats.cfm?id="+value+"&eventid="+eventid+"&datevalue="+datevalue.value;
 }
-function payamt(id) {
-	$.ajax({
-		type: "GET",
-		url: 'Components/bookmyshow.cfc?method=updatepayment&theatredetailsid='+id,					
-		success: function(data){
-			location.reload();
-		},
-	});
-}
+
 function markseat(value){
 	$.ajax({
 		type: "GET",

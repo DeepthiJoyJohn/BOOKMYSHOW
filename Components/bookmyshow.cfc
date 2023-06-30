@@ -273,22 +273,12 @@
 	</cffunction>
 
 	<cffunction name="updatepayment" access="remote">	
-		<CFQUERY NAME="local.selectseatids" DATASOURCE="bookmyshow">
-				select 
-					id
-				from 
-					theatreseatdetails
-				WHERE
-					theatredetailsid="#url.theatredetailsid#"					
-		</CFQUERY>
-		<cfloop query="local.selectseatids"> 
-			<CFQUERY NAME="local.updateseatstatus" DATASOURCE="bookmyshow">
-				UPDATE 
-					theatreseatstatus
-				SET 
-					seatstatus="sold"
-				WHERE
-					seatstatus="selected" and seatid="#local.selectseatids.id#"					
+		<cfloop query="local.updatepayment"> 
+			<CFQUERY NAME="local.updatepayment" DATASOURCE="bookmyshow">
+				INSERT INTO 
+					theatreseatstatus(theatreid,seatid,seatstatus,showdate)
+			    VALUES
+					(#url.theatreid#,#url.seatid#,"sold","#url.date#")
 			</CFQUERY>
 		</cfloop>
 	</cffunction>
