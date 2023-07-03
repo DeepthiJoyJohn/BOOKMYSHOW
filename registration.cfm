@@ -18,7 +18,7 @@
 		      	</div>
 		      	<nav id="navbar" class="nav-menu navbar">
 			        <ul>			        	
-			          	<li><a href="index.cfm" class="nav-link scrollto"><i class="bx bx-log-in"></i> <span>LogIn</span></a></li>			          	
+			          	<li><a href="login.cfm" class="nav-link scrollto"><i class="bx bx-log-in"></i> <span>LogIn</span></a></li>			          	
 			        </ul>
 		        </nav>		      	
 		    </div>
@@ -32,7 +32,7 @@
 				<cfset passwordmessage2="">
 				<cfset outputmessage="">
 				<cfif isDefined("Form.register")>											      
-					<cfinvoke component="ADDRESSBOOK.Components.addressbook" method="signup" 
+					<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="signup" 
 					form="#form#" returnVariable="res">	
 					<cfif ArrayContains(res, "usernamemessage")>
 						<cfset usernamemessage="Required">
@@ -59,7 +59,12 @@
 				<cfoutput>
 					<div class="container h-100">
 						<div class="row d-flex justify-content-center align-items-center h-100">
-							<div class="col-lg-12 col-xl-11">
+							
+							<div class="col-md-10 col-lg-6 col-xl-6 d-flex align-items-center order-1 order-lg-2">
+								<img src="Images/bookmyshow.jpg"
+								class="img-fluid" alt="Sample image">
+							</div>
+							<div class="col-md-10 col-lg-6 col-xl-4 order-2 order-lg-1">
 								<p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>			                
 								<div class="d-flex flex-row align-items-center mb-4">
 									<i class="fas fa-user fa-lg me-3 fa-fw"></i>
@@ -99,11 +104,12 @@
 								<div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">							                	
 									<input type="Submit" name="register"  onclick="javascript:registrationnullcheck()" class="btn btn-primary btn-lg" value="Register">
 								</div>	
-							</div>
+							</div> 	
 						</div>
 					</div>		
 				</cfoutput>	
-			</form>		    
+			</form>
+				    
 		</section>	
 	</body>
 </html>

@@ -12,6 +12,7 @@
 			<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>		
 			<script src="js/home.js" type="text/javascript"></script>
 		</head>
+		<cfset session.key = generateSecretKey("AES") />
 		<cfset locationsel="">
 		<cfset eventtype="">
 		<cfset languagetype="">
@@ -70,7 +71,7 @@
 							</select>						
 						</td>
 						<td>
-							<a href="index.cfm"><span>Log Out</span></a> 
+							<a href="login.cfm"><span>Log Out</span></a> 
 						</td>
 					</tr>
 				</table>			
@@ -87,7 +88,8 @@
 										<label class="eventname">#images.eventrate[i]#/10</label>
 										<label class="eventname">#images.hr[i]#h #images.mi[i]#m</label>
 									</span><br>
-									<button type="button" name="eventbutton" onclick="eventdetails(#i#)" class="btn btn-danger btn-sm">BOOK TICKET</button>
+									<cfset encryptedimagesid = Encrypt(#images.id[i]#, session.key, "AES", "HEX") /> 
+									<button type="button" name="eventbutton" onclick="eventdetails('#encryptedimagesid#')" class="btn btn-danger btn-sm">BOOK TICKET</button>
 								</td>
 								<cfif i%4 eq 0>
 									<tr>

@@ -1,3 +1,20 @@
+function payamt1(datevalue,theatreid) {	
+	var slides = document.getElementsByClassName("btn btn-success btn-sm");
+	for(var i = 0; i < ((slides.length)-1); i++)
+		{	
+			if(slides[i].id!=0){
+				$.ajax({
+					type: "GET",
+					url: 'Components/bookmyshow.cfc?method=updatepayment&seatid='+slides[i].id+'&date='+datevalue+'&theatreid='+theatreid,					
+					success: function(data){
+						window.location.reload();
+					},
+				});
+			}
+			
+		}		
+}
+
 $(document).ready( function() {
 	var slides = document.getElementsByClassName("btn btn-success btn-sm");
 	
@@ -8,7 +25,9 @@ $(document).ready( function() {
 	}
 	
 });
+
 function selectseat(id){
+	
 	var classname=document.getElementById(id).className;
 	if(classname=="btn btn-light btn-sm"){
 		document.getElementById(id).className='btn btn-success btn-sm';
@@ -27,21 +46,7 @@ function selectseat(id){
 		}else{
 			document.getElementById("payamt").style.display="none";
 		}
-}
-function payamt(date,theatreid) {
-	alert("S");
-	var slides = document.getElementsByClassName("btn btn-success btn-sm");
-	for(var i = 0; i < ((slides.length)-1); i++)
-		{	
-			alert(slides[i].id);
-			$.ajax({
-				type: "GET",
-				url: 'Components/bookmyshow.cfc?method=updatepayment&seatid='+slides[i].id+'date='+date+'theatreid='+theatreid,					
-				success: function(data){
-					location.reload();
-				},
-			});
-		}
+		document.getElementById('bottomtr').className='bottomview';
 }
 
 

@@ -62,10 +62,11 @@ function invokecfc(value) {
 }
 
 function eventdetails(value) {	
-	window.location="eventdetails.cfm?id="+value;
+	window.location="eventdetails.cfm?eventid="+value;
 }
 function eventseats(value,eventid,datevalue) {
-	window.location="theatreseats.cfm?id="+value+"&eventid="+eventid+"&datevalue="+datevalue.value;
+	
+	window.location="theatreseats.cfm?theatreid="+value+"&eventid="+eventid+"&datevalue="+datevalue;
 }
 
 function markseat(value){
@@ -77,11 +78,7 @@ function markseat(value){
 		},
 	});
 }
-function selectseat(id){
-  
 
-
-}
 function eventcheck(){
 	var eventtype = document.getElementById("eventtype").value;
 	var eventname = document.getElementById("eventname").value;	

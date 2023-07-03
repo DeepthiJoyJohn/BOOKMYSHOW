@@ -71,6 +71,12 @@ span.message {
   margin-left: 20px;
   margin-top: 200px;
 }
+tr.bottom{
+  display:none;
+}
+tr.bottomview{
+  display:table-row;
+}
 
 h1,
 h2,

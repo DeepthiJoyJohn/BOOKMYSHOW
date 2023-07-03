@@ -9,6 +9,7 @@
 		<script src="js/home.js" type="text/javascript"></script>
 	</head>	
 	<body>	
+		<cfset url.eventid = decrypt(#url.eventid#, session.key, "AES", "HEX") />            
 		<header id="header">			
 			<div class="d-flex flex-column">
 		    	<div class="profile">        
@@ -27,9 +28,9 @@
 		<cfset datevalue="#LSDateFormat(now(), 'yyyy-mm-dd')#">
 		<cfif isDefined("form.datepicker")>
 			<cfset datevalue="#form.datepicker#">
-			<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" eventid="#url.id#" datepicker="#form.datepicker#" method="gettheatreinfo" returnVariable="theatre">					
+			<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" eventid="#url.eventid#" datepicker="#form.datepicker#" method="gettheatreinfo" returnVariable="theatre">					
 		<cfelse>
-			<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" eventid="#url.id#" datepicker="" method="gettheatreinfo" returnVariable="theatre">		
+			<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" eventid="#url.eventid#" datepicker="" method="gettheatreinfo" returnVariable="theatre">		
 		</cfif>		
 		<cfoutput>
 			<section  class="d-flex flex-column justify-content-center align-items-center">				
@@ -64,7 +65,10 @@
 																#theatre.theatrename[i]#  #theatre.theatreadd[i]#
 															</td>
 															<td>
-																<button type="button" onclick="eventseats(#i#,#theatre.id#,form.datepicker)" class="btn btn-outline-dark">#theatre.hr[i]# : #theatre.mi[i]#</button>
+																<cfset encryptedtheatreid=Encrypt(#theatre.id[i]#, session.key, "AES", "HEX") /> 
+																<cfset encryptedeventid=Encrypt(#url.eventid#, session.key, "AES", "HEX") /> 
+																<cfset encrypteddate=Encrypt(#datevalue#, session.key, "AES", "HEX") /> 
+																<button type="button" onclick="eventseats('#encryptedtheatreid#','#encryptedeventid#','#encrypteddate#')" class="btn btn-outline-dark">#theatre.hr[i]# : #theatre.mi[i]#</button>
 															</td>
 															<cfif i%1 eq 0>
 																<tr>
