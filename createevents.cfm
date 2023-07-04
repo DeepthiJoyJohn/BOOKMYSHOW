@@ -13,7 +13,7 @@
 	<cfinvoke component="BOOKMYSHOW.Components.bookmyshow"  method="geteventtypes" returnVariable="eventtype">
 	<cfinvoke component="BOOKMYSHOW.Components.bookmyshow"  method="getlocations" returnVariable="locations">
 	<cfinvoke component="BOOKMYSHOW.Components.bookmyshow"  method="getlanguage" returnVariable="languages">
-    <cfinvoke component="BOOKMYSHOW.Components.bookmyshow"  datepicker="#LSDateFormat(now(), 'yyyy-mm-dd')#" method="gettheatreinfo" returnVariable="theatres">
+    <cfinvoke component="BOOKMYSHOW.Components.bookmyshow"  eventid="" datepicker="#LSDateFormat(now(), 'yyyy-mm-dd')#" method="gettheatreinfo" returnVariable="theatres">
 	<body>	
         <section  class="d-flex flex-column justify-content-center align-items-center">
             <cfset btnname="Submit">

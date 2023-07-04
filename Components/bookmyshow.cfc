@@ -84,7 +84,7 @@
 				locations on (locations.id=events.eventlocation)
 			WHERE 1
 			<cfif #arguments.listing# neq "admin">
-				AND DATE(NOW()) <= eventfrom 
+				AND DATE(NOW()) >= eventfrom AND  DATE(NOW()) <=eventto
 			</cfif>
 			<cfif #arguments.location# neq "">
 				AND eventlocation="#arguments.location#"
@@ -172,9 +172,9 @@
 	<cffunction name="updatepayment" access="remote">
 		<CFQUERY NAME="local.updatepayment" DATASOURCE="bookmyshow">
 				INSERT INTO 
-					theatreseatstatus(theatreid,seatid,seatstatus,showdate)
+					theatreseatstatus(theatreid,seatid,seatstatus,showdate,eventid)
 				VALUES
-					(#url.theatreid#,#url.seatid#,"sold","#url.date#")
+					(#url.theatreid#,#url.seatid#,"sold","#url.date#","#url.eventid#")
 			</CFQUERY>
 	</cffunction>
 
@@ -216,6 +216,7 @@
 	
 	<cffunction name="getsoldseats" access="remote">
 		<cfargument name="theatreid">
+		<cfargument name="eventid">
 		<cfset local.soldstruct=StructNew()>
 		<CFQUERY NAME="local.getsoldseats" DATASOURCE="bookmyshow">
 			SELECT 
@@ -224,6 +225,8 @@
 				theatreseatstatus
 			WHERE
 				theatreid="#arguments.theatreid#"
+            AND
+				eventid="#arguments.eventid#"
 			ORDER BY ID
 		</CFQUERY>
 		<cfloop query="local.getsoldseats">

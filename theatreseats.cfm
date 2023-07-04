@@ -11,8 +11,6 @@
 	</head>	
 	<cfoutput>	
 	<body>
-		
-
 		<header id="header">			
 			<div class="d-flex flex-column">
 		    	<div class="profile">        
@@ -30,9 +28,10 @@
 		</header>	
 		<cfset url.theatreid = decrypt(#url.theatreid#, session.key, "AES", "HEX") />   
 		<cfset url.datevalue = decrypt(#url.datevalue#, session.key, "AES", "HEX") />  
+		<cfset url.eventid = decrypt(#url.eventid#, session.key, "AES", "HEX") />  
 		
 		<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getseats" theatreid="#url.theatreid#" returnVariable="seats">
-		<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getsoldseats" theatreid="#url.theatreid#" returnVariable="seatssold">				
+		<cfinvoke component="BOOKMYSHOW.Components.bookmyshow" method="getsoldseats" eventid=#url.eventid# theatreid="#url.theatreid#" returnVariable="seatssold">				
 			<section  class="d-flex flex-column">				
 				<form id="form" name="form" method="post" action="">
 					<div class="container h-100 bodyclass">
@@ -75,7 +74,7 @@
 														<td><button class="btn btn-secondary btn-sm">&nbsp;</button><b> sold</b></td>
 													</tr>													
 													<tr class="bottom" id="bottomtr">
-														<td colspan="3" align="center"><button type="button" onclick="payamt1('#url.datevalue#','#url.theatreid#')" id="payamt" class="btn btn-danger btn-sm"><span class="btn" id="payamt"></span></button></td>
+														<td colspan="3" align="center"><button type="button" onclick="payamt1('#url.datevalue#','#url.theatreid#','#url.eventid#')" id="payamt" class="btn btn-danger btn-sm"><span class="btn" id="payamt"></span></button></td>
 													</tr>
 												</table>
 											</div>											

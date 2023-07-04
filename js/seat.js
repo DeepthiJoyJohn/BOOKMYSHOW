@@ -1,11 +1,11 @@
-function payamt1(datevalue,theatreid) {	
+function payamt1(datevalue,theatreid,eventid) {	
 	var slides = document.getElementsByClassName("btn btn-success btn-sm");
 	for(var i = 0; i < ((slides.length)-1); i++)
 		{	
 			if(slides[i].id!=0){
 				$.ajax({
 					type: "GET",
-					url: 'Components/bookmyshow.cfc?method=updatepayment&seatid='+slides[i].id+'&date='+datevalue+'&theatreid='+theatreid,					
+					url: 'Components/bookmyshow.cfc?method=updatepayment&seatid='+slides[i].id+'&date='+datevalue+'&theatreid='+theatreid+'&eventid='+eventid,					
 					success: function(data){
 						window.location.reload();
 					},
